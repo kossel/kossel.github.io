@@ -3,7 +3,7 @@ import styled, { css } from 'react-emotion';
 import Link from 'gatsby-link';
 
 const wrapper = css`
-  width: calc(100vw - 350px - 16px);
+  width: calc(100vw - 350px - 32px);
   position: fixed;
   background-color: #fff;
   opacity: 0.9;
@@ -11,7 +11,7 @@ const wrapper = css`
 `;
 
 const NavItems = styled('div')`
-  margin: 0 16px;
+  margin-left: 16px;
   padding: 16px 0;
   border-bottom: 1px solid #e2e2e2;
 `;
