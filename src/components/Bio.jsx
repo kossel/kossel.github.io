@@ -1,34 +1,30 @@
 import React from 'react';
-import styled, { css, cx } from 'react-emotion';
+import styled, { css } from 'react-emotion';
+import { Spring, interpolate, animated } from 'react-spring';
 import 'typeface-montserrat/index.css';
 import 'typeface-merriweather/index.css';
 import profilePic from '../assets/avatar2.jpg';
 
-const BioContainer = styled('div')`
+const BioContainer = styled(animated.div)`
   display: flex;
-  height: 120px;
-  margin-top: 24px;
-  margin-bottom: 32px;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  position: relative;
-  transition: all 0.3s;
   background-color: white;
+  border-right: 1px solid #e2e2e2;
 `;
 
 const avatarStyle = css`
   margin-bottom: 0;
   border-radius: 100%;
-  width: 80px;
-  height: 80px;
+  width: 80%;
+  height: 80%;
   z-index: 1;
-  position: absolute;
 `;
 
-const avatarWrapperStyle = css`
-  width: 100px;
-  height: 100px;
+const AvatarCircle = styled('div')`
+  width: 100%;
+  height: 100%;
   position: absolute;
   border-radius: 100%;
   background: rgb(255,255,255); /* Old browsers */
@@ -37,11 +33,15 @@ const avatarWrapperStyle = css`
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 `;
 
+const ProfilePicture = styled('div')`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+`;
 
-const placeholderStyle = css`
-  padding-top: 24px;
-  height: 120px;
-  width: inherit;
+const ProfileName = styled('div')`
+  padding: 8px 0;
 `;
 
 class Bio extends React.PureComponent {
@@ -49,24 +49,30 @@ class Bio extends React.PureComponent {
     const { shouldPin } = this.props;
     return (
       <div className={css`width: inherit; position: relative;`}>
-        <BioContainer
-          className={cx({
-            // [shouldPinContainer]: shouldPin,
-          })}
-        >
-          <img
-            className={avatarStyle}
-            src={profilePic}
-            alt="Yichao"
-          />
-          <div className={avatarWrapperStyle} />
-          <p>
+        <BioContainer>
+          <Spring
+            to={{
+              width: shouldPin ? '64px' : '100px',
+              height: shouldPin ? '64px' : '100px',
+            }}
+          >
+            {
+              styles => (
+                <ProfilePicture style={styles}>
+                  <img
+                    className={avatarStyle}
+                    src={profilePic}
+                    alt="Yichao"
+                  />
+                  <AvatarCircle />
+                </ProfilePicture>
+              )
+            }
+          </Spring>
+          <ProfileName>
             <strong>Yichao</strong>
-          </p>
+          </ProfileName>
         </BioContainer>
-        {
-          shouldPin && <div className={placeholderStyle} />
-        }
       </div>
     );
   }

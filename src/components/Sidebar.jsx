@@ -31,20 +31,27 @@ class Sidebar extends React.Component {
       bioPin: false,
     };
     this.handleScroll = this.handleScroll.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleScroll() {
     const rect = this.postListRef.getBoundingClientRect();
     console.log(rect.y);
-    if (rect.y >= 120 && this.state.bioPin) {
+    if (rect.y >= 100 && this.state.bioPin) {
       this.setState({
         bioPin: false,
       });
-    } else if (rect.y <= 160 && !this.state.bioPin) {
+    } else if (rect.y <= 140 && !this.state.bioPin) {
       this.setState({
         bioPin: true,
       });
     }
+  }
+
+  handleClick() {
+    this.setState(state => ({
+      bioPin: !state.bioPin,
+    }));
   }
 
   render() {
@@ -72,10 +79,10 @@ class Sidebar extends React.Component {
           if (!posts) return <div>loading...</div>;
           return (
             <aside className={wrapper}>
+              <Bio
+                shouldPin={this.state.bioPin}
+              />
               <Scrollbars autoHide onScroll={this.handleScroll}>
-                <Bio
-                  shouldPin={this.state.bioPin}
-                />
                 <PostItemsList innerRef={(postListRef) => { this.postListRef = postListRef; }}>
                   {
                     posts.map(({ node }) => {
