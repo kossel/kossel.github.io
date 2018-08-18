@@ -66,5 +66,11 @@ module.exports = {
       },
     },
     'gatsby-plugin-eslint',
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        include: /assets/,
+      },
+    },
   ],
 };

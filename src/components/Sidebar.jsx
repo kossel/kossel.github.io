@@ -26,22 +26,22 @@ const PostItem = styled('div')`
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-    this.postListRef = null;
     this.state = {
       bioPin: false,
     };
+    this.scrollbar = null;
+
     this.handleScroll = this.handleScroll.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleScroll() {
-    const rect = this.postListRef.getBoundingClientRect();
-    console.log(rect.y);
-    if (rect.y >= 100 && this.state.bioPin) {
+    const distanceToTop = this.scrollbar.getValues().scrollTop;
+    if (distanceToTop === 0 && this.state.bioPin) {
       this.setState({
         bioPin: false,
       });
-    } else if (rect.y <= 140 && !this.state.bioPin) {
+    } else if (distanceToTop > 0 && !this.state.bioPin) {
       this.setState({
         bioPin: true,
       });
@@ -82,7 +82,13 @@ class Sidebar extends React.Component {
               <Bio
                 shouldPin={this.state.bioPin}
               />
-              <Scrollbars autoHide onScroll={this.handleScroll}>
+              <Scrollbars
+                autoHide
+                onScroll={this.handleScroll}
+                ref={(el) => {
+                  this.scrollbar = el;
+                }}
+              >
                 <PostItemsList innerRef={(postListRef) => { this.postListRef = postListRef; }}>
                   {
                     posts.map(({ node }) => {
