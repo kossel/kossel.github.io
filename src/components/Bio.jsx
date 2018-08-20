@@ -1,12 +1,9 @@
 import React from 'react';
 import styled, { css } from 'react-emotion';
-import { Spring, Trail, animated } from 'react-spring';
+import { Spring, Transition, animated } from 'react-spring';
 import 'typeface-montserrat/index.css';
 import 'typeface-merriweather/index.css';
 import profilePic from '../assets/avatar2.jpg';
-import linkedinIcon from '../assets/icons/linkedin.svg';
-import githubIcon from '../assets/icons/github.svg';
-import soIcon from '../assets/icons/stackoverflow.svg';
 
 const BioContainer = styled(animated.div)`
   display: flex;
@@ -49,38 +46,7 @@ const ProfileName = styled('div')`
   padding: 8px 0;
 `;
 
-const SocialMedias = styled('div')`
-  position: relative;
-  width: 100px;
-`;
-
-const SocialItem = styled('img')`
-  margin: 0;
-`;
-
 class Bio extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.items = [
-      {
-        key: 'github',
-        icon: githubIcon,
-        url: 'https://github.com/kossel',
-      },
-      {
-        key: 'so',
-        icon: soIcon,
-        url: 'https://stackoverflow.com/users/247869/yichaoz',
-      },
-      {
-        key: 'linkedin',
-        icon: linkedinIcon,
-        url: 'https://www.linkedin.com/in/yichao-z-94214230/',
-      },
-    ];
-  }
-
-
   render() {
     const { shouldPin } = this.props;
     return (
@@ -107,8 +73,8 @@ class Bio extends React.PureComponent {
         </Spring>
         <Spring
           to={{
-            fontSize: shouldPin ? '18px' : '16px',
-            transform: shouldPin ? 'translateY(-48px)' : 'translateY(0px)',
+            fontSize: shouldPin ? '16px' : '24px',
+            transform: shouldPin ? 'translate(-36px, -36px)' : 'translate(0px, 0px)',
           }}
         >
           {
@@ -119,31 +85,27 @@ class Bio extends React.PureComponent {
             )
           }
         </Spring>
-        <SocialMedias>
-          <Trail
-            native
-            to={{
-              y: shouldPin ? -48 : -24,
-              opacity: shouldPin ? 1 : 0,
-            }}
-            keys={this.items.map(i => i.key)}
-          >
-            {
-              this.items.map((item, i) => ({ y, opacity }) => (
-                <animated.span
-                  style={{
-                    opacity,
-                    position: 'absolute',
-                    transform: y.interpolate(val => `translateY(${val}px)`),
-                    left: `${i * 32}px`,
-                  }}
-                >
-                  <SocialItem src={item.icon} width="24" height="24" alt={item.key} />
-                </animated.span>
-              ))
-            }
-          </Trail>
-        </SocialMedias>
+        <Transition
+          native
+          to={{
+            y: shouldPin ? 20 : 64,
+            opacity: shouldPin ? 1 : 0,
+          }}
+        >
+          {
+            ({ y, opacity }) => (
+              <animated.span
+                style={{
+                  opacity,
+                  position: 'absolute',
+                  transform: y.interpolate(val => `translateY(${val}px)`),
+                }}
+              >
+                <small>Software Engineer</small>
+              </animated.span>
+            )
+          }
+        </Transition>
       </BioContainer>
     );
   }

@@ -12,7 +12,7 @@ const MainContainer = styled('div')`
 `;
 
 const ContentContainer = styled('div')`
-  padding: 61px 16px 0 16px;
+  padding:  58px 16px 0 16px;
   margin: 0 auto;
   max-width: 800px;
   position: relative;
