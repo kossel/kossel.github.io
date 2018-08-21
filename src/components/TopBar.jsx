@@ -6,20 +6,19 @@ import githubIcon from '../assets/icons/github.svg';
 import soIcon from '../assets/icons/stackoverflow.svg';
 
 const wrapper = css`
-  width: calc(100vw - 350px - 32px);
-  position: fixed;
+  width: 100%;
+  position: relative;
   background-color: #fff;
   opacity: 0.9;
   z-index: 1;
 `;
 
 const NavItems = styled('div')`
-  margin-left: 16px;
+  margin: 0 16px;
   padding: 16px 0;
   border-bottom: 1px solid #e2e2e2;
   display: flex;
   justify-content: space-between;
-  height: 58px;
 `;
 
 const SocialItem = styled('a')`

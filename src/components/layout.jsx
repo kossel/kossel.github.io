@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'react-emotion';
 import { Scrollbars } from 'react-custom-scrollbars';
 import 'prismjs/themes/prism-solarizedlight.css';
@@ -12,7 +13,7 @@ const MainContainer = styled('div')`
 `;
 
 const ContentContainer = styled('div')`
-  padding:  58px 16px 0 16px;
+  padding:  0 16px;
   margin: 0 auto;
   max-width: 800px;
   position: relative;
@@ -32,8 +33,8 @@ class Template extends React.Component {
       >
         <Sidebar />
         <MainContainer>
+          <TopBar />
           <Scrollbars autoHide>
-            <TopBar />
             <ContentContainer>
               {children}
             </ContentContainer>
@@ -43,5 +44,9 @@ class Template extends React.Component {
     );
   }
 }
+
+Template.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Template;

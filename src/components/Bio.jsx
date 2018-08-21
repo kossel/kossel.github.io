@@ -1,4 +1,5 @@
 import React from 'react';
+import PropType from 'prop-types';
 import styled, { css } from 'react-emotion';
 import { Spring, Transition, animated } from 'react-spring';
 import 'typeface-montserrat/index.css';
@@ -110,5 +111,13 @@ class Bio extends React.PureComponent {
     );
   }
 }
+
+Bio.defaultProps = {
+  shouldPin: false,
+};
+
+Bio.propTypes = {
+  shouldPin: PropType.bool,
+};
 
 export default Bio;

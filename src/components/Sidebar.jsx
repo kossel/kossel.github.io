@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled, { css } from 'react-emotion';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Link, graphql, StaticQuery } from 'gatsby';
@@ -13,6 +12,9 @@ const wrapper = css`
   top: 0;
   left: 0;
   bottom: 0;
+  @media (max-width: 991px) {
+    display: none;
+  }
 `;
 
 const PostItemsList = styled('div')`
