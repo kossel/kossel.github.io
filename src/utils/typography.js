@@ -2,6 +2,9 @@ import Typography from 'typography';
 import fairyGatesTheme from 'typography-theme-fairy-gates';
 
 fairyGatesTheme.overrideThemeStyles = () => ({
+  html: {
+    overflowY: 'hidden',
+  },
   'gatsby-resp-image-link': {
     boxShadow: 'none',
     backgroundImage: 'none',
