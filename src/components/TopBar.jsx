@@ -18,7 +18,11 @@ const NavItems = styled('div')`
   padding: 16px 0;
   border-bottom: 1px solid #e2e2e2;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  @media (max-width: 991px) {
+    padding: 8px;
+  }
 `;
 
 const SocialItem = styled('a')`
@@ -39,7 +43,7 @@ const SocialIcon = styled('img')`
 
 const SocialMedias = styled('div')`
   position: relative;
-  display: inline-block;
+  display: flex;
 `;
 
 class TopBar extends React.Component {
@@ -55,7 +59,7 @@ class TopBar extends React.Component {
             }}
             to="/"
           >
-            Growing with the web
+            Home
           </Link>
           <SocialMedias>
             <SocialItem href="https://www.linkedin.com/in/yichao-z-94214230/" target="_BLANK">

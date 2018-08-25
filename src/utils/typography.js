@@ -2,8 +2,12 @@ import Typography from 'typography';
 import fairyGatesTheme from 'typography-theme-fairy-gates';
 
 fairyGatesTheme.overrideThemeStyles = () => ({
-  'a.gatsby-resp-image-link': {
+  'gatsby-resp-image-link': {
     boxShadow: 'none',
+    backgroundImage: 'none',
+  },
+  'a.gatsby-resp-image-link:hover': {
+    backgroundImage: 'none',
   },
   a: {
     backgroundImage: 'none',

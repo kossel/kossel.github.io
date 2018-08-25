@@ -3,6 +3,7 @@ import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
 import Helmet from 'react-helmet';
 import Layout from '../components/layout';
+import Footer from '../components/Footer';
 
 class BlogIndex extends React.Component {
   render() {
@@ -34,6 +35,7 @@ class BlogIndex extends React.Component {
             </div>
           );
         })}
+        <Footer />
       </Layout>
     );
   }

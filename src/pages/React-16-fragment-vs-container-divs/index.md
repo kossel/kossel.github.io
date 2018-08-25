@@ -25,7 +25,6 @@ render() {
 
 
 Yes, we need a container div, but it's not that big of a deal.
-<!-- more -->
 
 In React 16.2, we can do this to avoid the surrounding container div:
 

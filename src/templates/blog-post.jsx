@@ -4,6 +4,7 @@ import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
 import Layout from '../components/layout';
 import { rhythm, scale } from '../utils/typography';
+import Footer from '../components/Footer';
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -64,6 +65,7 @@ class BlogPostTemplate extends React.Component {
             </li>
           )}
         </ul>
+        <Footer />
       </Layout>
     );
   }

@@ -10,6 +10,8 @@ const MainContainer = styled('div')`
   flex: 1;
   width: 100%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ContentContainer = styled('div')`

@@ -28,7 +28,7 @@ module.exports = {
     }],
     "react/no-danger": 0,
     "react/destructuring-assignment": 0,
-    "react/prop-types": 1,
+    "react/prop-types": 0,
     "no-unused-vars": 1,
     "react/jsx-one-expression-per-line": 0,
   }
