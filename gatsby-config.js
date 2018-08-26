@@ -5,7 +5,7 @@ module.exports = {
     description: 'A collection of stuffs I found interesting',
     siteUrl: 'https://kossel.github.io/',
   },
-  pathPrefix: '/kossel.github.io',
+  pathPrefix: '/public',
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',
@@ -41,7 +41,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        // trackingId: 'ADD YOUR TRACKING ID HERE',
+        trackingId: 'UA-124606923-1',
       },
     },
     'gatsby-plugin-feed',

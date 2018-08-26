@@ -28,6 +28,13 @@ fairyGatesTheme.overrideThemeStyles = () => ({
     0.12em 0 #fff, -0.12em 0 #fff,
     0.15em 0 #fff, -0.15em 0 #fff`,
   },
+  '.icon': {
+    width: '1em',
+    height: '1em',
+    verticalAlign: '-0.15em',
+    fill: 'currentColor',
+    overflow: 'hidden',
+  },
 });
 
 // delete fairyGatesTheme.googleFonts;

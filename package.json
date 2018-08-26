@@ -1,10 +1,10 @@
 {
-  "name": "gatsby-starter-blog",
-  "description": "Starter Gatsby Blog",
+  "name": "blog",
+  "description": "yet another blog of my coding life",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Yichaoz",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby-starter-blog/issues"
+    "url": "https://github.com/kossel/kossel.github.io/issues"
   },
   "dependencies": {
     "emotion": "^9.2.6",
@@ -53,15 +53,17 @@
     "prettier": "^1.12.0",
     "prop-types": "^15.6.2"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://github.com/kossel/kossel.github.io",
   "keywords": [
-    "gatsby"
+    "yichao",
+    "kossel",
+    "yichaoz"
   ],
   "license": "MIT",
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git@github.com:kossel/kossel.github.io.git"
   },
   "scripts": {
     "dev": "gatsby develop",
