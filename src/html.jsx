@@ -22,6 +22,7 @@ export default class HTML extends React.Component {
             dangerouslySetInnerHTML={{ __html: this.props.body }}
           />
           {this.props.postBodyComponents}
+          <script defer src="node_modules/svgxuse/svgxuse.js"></script>
         </body>
       </html>
     );
