@@ -5,7 +5,7 @@ import { Link, graphql, StaticQuery } from 'gatsby';
 import get from 'lodash/get';
 import Bio from './Bio';
 
-const wrapper = css`
+const SidebarWrapper = styled('aside')`
   width: 350px;
   height: 100vh;
   border-right: 1px solid #e2e2e2;
@@ -80,7 +80,7 @@ class Sidebar extends React.Component {
           const posts = get(data, 'allMarkdownRemark.edges');
           if (!posts) return <div>loading...</div>;
           return (
-            <aside className={wrapper}>
+            <SidebarWrapper>
               <Bio
                 shouldPin={this.state.bioPin}
               />
@@ -108,7 +108,7 @@ class Sidebar extends React.Component {
                   }
                 </PostItemsList>
               </Scrollbars>
-            </aside>
+            </SidebarWrapper>
           );
         }}
       />

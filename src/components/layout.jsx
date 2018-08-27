@@ -35,6 +35,7 @@ class Template extends React.Component {
         display: 'flex',
         position: 'relative',
         overflowY: 'hidden',
+        height: '100vh',
       }}
       >
         <Sidebar />

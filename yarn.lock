@@ -4865,6 +4865,12 @@ gatsby-link@^2.0.0-beta.19:
     prop-types "^15.6.1"
     ric "^1.3.0"
 
+gatsby-plugin-emotion@^1.1.17:
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-emotion/-/gatsby-plugin-emotion-1.1.17.tgz#27b31f03ea47007aa84efa3b19b5653bf863af4b"
+  dependencies:
+    babel-runtime "^6.26.0"
+
 gatsby-plugin-eslint@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-eslint/-/gatsby-plugin-eslint-2.0.1.tgz#88641be50b95a867416878c43b64458a2d6b9c21"

@@ -66,5 +66,8 @@ module.exports = {
       },
     },
     'gatsby-plugin-eslint',
+    {
+      resolve: 'gatsby-plugin-emotion',
+    },
   ],
 };
