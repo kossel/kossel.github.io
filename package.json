@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "emotion": "^9.2.6",
+    "emotion-server": "^9.2.6",
     "gatsby": "next",
     "gatsby-plugin-feed": "next",
     "gatsby-plugin-google-analytics": "next",

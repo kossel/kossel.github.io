@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from 'react-emotion';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Link, graphql, StaticQuery } from 'gatsby';
 import get from 'lodash/get';
