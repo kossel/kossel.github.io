@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import svgxuse from 'svgxuse/svgxuse';
+
+require('svgxuse/svgxuse');
 
 export default class HTML extends React.Component {
   render() {
@@ -23,7 +24,6 @@ export default class HTML extends React.Component {
             dangerouslySetInnerHTML={{ __html: this.props.body }}
           />
           {this.props.postBodyComponents}
-          <script defer src={svgxuse} />
         </body>
       </html>
     );
