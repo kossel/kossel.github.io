@@ -7,8 +7,6 @@ import TopBar from './TopBar';
 import Sidebar from './Sidebar';
 
 const MainContainer = styled('div')`
-  flex: 1;
-  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,7 +16,8 @@ const ContentContainer = styled('div')`
   padding:  0 16px;
   margin: 0 auto;
   max-width: 800px;
-  position: relative;
+  width: 100%;
+  flex: 1;
 `;
 
 class Template extends React.Component {
@@ -30,12 +29,7 @@ class Template extends React.Component {
     const { children } = this.props;
     return (
       <div style={{
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        display: 'flex',
-        position: 'relative',
         overflowY: 'hidden',
-        height: '100vh',
       }}
       >
         <Sidebar />

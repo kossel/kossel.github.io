@@ -3,22 +3,19 @@ import styled from 'react-emotion';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Link, graphql, StaticQuery } from 'gatsby';
 import get from 'lodash/get';
-import Bio from './Bio';
 
 const SidebarWrapper = styled('aside')`
   width: 350px;
   height: 100vh;
   border-right: 1px solid #e2e2e2;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  float: left;
   @media (max-width: 991px) {
     display: none;
   }
 `;
 
 const PostItemsList = styled('div')`
-  padding: 0 16px;
+  padding: 32px 16px;
 `;
 
 const PostItem = styled('div')`
@@ -81,9 +78,6 @@ class Sidebar extends React.Component {
           if (!posts) return <div>loading...</div>;
           return (
             <SidebarWrapper>
-              <Bio
-                shouldPin={this.state.bioPin}
-              />
               <Scrollbars
                 autoHide
                 onScroll={this.handleScroll}
