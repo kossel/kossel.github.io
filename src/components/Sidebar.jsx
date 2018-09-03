@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'react-emotion';
+import { css } from 'react-emotion';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Link, graphql, StaticQuery } from 'gatsby';
 import get from 'lodash/get';
 
-const SidebarWrapper = styled('aside')`
+const sidebarWrapper = css`
   width: 350px;
   height: 100vh;
   border-right: 1px solid #e2e2e2;
@@ -14,44 +14,39 @@ const SidebarWrapper = styled('aside')`
   }
 `;
 
-const PostItemsList = styled('div')`
+const postItemsList = css`
   padding: 32px 16px;
 `;
 
-const PostItem = styled('div')`
+const postItem = css`
   padding: 8px 16px;
 `;
 
 class Sidebar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bioPin: false,
-    };
-    this.scrollbar = null;
+  // constructor(props) {
+  //   super(props);
+  //   this.scrollbar = null;
+  //   this.handleClick = this.handleClick.bind(this);
+  // }
 
-    this.handleScroll = this.handleScroll.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+  // handleScroll() {
+  //   const distanceToTop = this.scrollbar.getValues().scrollTop;
+  //   if (distanceToTop === 0 && this.state.bioPin) {
+  //     this.setState({
+  //       bioPin: false,
+  //     });
+  //   } else if (distanceToTop > 0 && !this.state.bioPin) {
+  //     this.setState({
+  //       bioPin: true,
+  //     });
+  //   }
+  // }
 
-  handleScroll() {
-    const distanceToTop = this.scrollbar.getValues().scrollTop;
-    if (distanceToTop === 0 && this.state.bioPin) {
-      this.setState({
-        bioPin: false,
-      });
-    } else if (distanceToTop > 0 && !this.state.bioPin) {
-      this.setState({
-        bioPin: true,
-      });
-    }
-  }
-
-  handleClick() {
-    this.setState(state => ({
-      bioPin: !state.bioPin,
-    }));
-  }
+  // handleClick() {
+  //   this.setState(state => ({
+  //     bioPin: !state.bioPin,
+  //   }));
+  // }
 
   render() {
     return (
@@ -77,32 +72,31 @@ class Sidebar extends React.Component {
           const posts = get(data, 'allMarkdownRemark.edges');
           if (!posts) return <div>loading...</div>;
           return (
-            <SidebarWrapper>
+            <aside className={sidebarWrapper}>
               <Scrollbars
                 autoHide
-                onScroll={this.handleScroll}
-                ref={(el) => {
-                  this.scrollbar = el;
-                }}
+                // ref={(el) => {
+                //   this.scrollbar = el;
+                // }}
               >
-                <PostItemsList innerRef={(postListRef) => { this.postListRef = postListRef; }}>
+                <div className={postItemsList}>
                   {
                     posts.map(({ node }) => {
                       const title = get(node, 'frontmatter.title') || node.fields.slug;
                       return (
-                        <PostItem key={node.fields.slug}>
+                        <div className={postItem} key={node.fields.slug}>
                           <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
                             {
                               title
                             }
                           </Link>
-                        </PostItem>
+                        </div>
                       );
                     })
                   }
-                </PostItemsList>
+                </div>
               </Scrollbars>
-            </SidebarWrapper>
+            </aside>
           );
         }}
       />

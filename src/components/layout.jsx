@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'react-emotion';
+import { css } from 'react-emotion';
 import { Scrollbars } from 'react-custom-scrollbars';
 import 'prismjs/themes/prism-solarizedlight.css';
 import TopBar from './TopBar';
 import Sidebar from './Sidebar';
 
-const MainContainer = styled('div')`
+const mainContainer = css`
   height: 100vh;
   display: flex;
   flex-direction: column;
 `;
 
-const ContentContainer = styled('div')`
+const contentContainer = css`
   padding:  0 16px;
   margin: 0 auto;
   max-width: 800px;
@@ -28,19 +28,16 @@ class Template extends React.Component {
   render() {
     const { children } = this.props;
     return (
-      <div style={{
-        overflowY: 'hidden',
-      }}
-      >
+      <div>
         <Sidebar />
-        <MainContainer>
+        <div className={mainContainer}>
           <TopBar />
           <Scrollbars autoHide>
-            <ContentContainer>
+            <div className={contentContainer}>
               {children}
-            </ContentContainer>
+            </div>
           </Scrollbars>
-        </MainContainer>
+        </div>
       </div>
     );
   }
