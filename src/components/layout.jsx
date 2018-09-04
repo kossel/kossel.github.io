@@ -1,23 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'react-emotion';
+import styled from 'react-emotion';
 import { Scrollbars } from 'react-custom-scrollbars';
 import 'prismjs/themes/prism-solarizedlight.css';
 import TopBar from './TopBar';
 import Sidebar from './Sidebar';
 
-const mainContainer = css`
+const MainContainer = styled('div')`
   height: 100vh;
   display: flex;
   flex-direction: column;
 `;
 
-const contentContainer = css`
+const ContentContainer = styled('div')`
   padding:  0 16px;
   margin: 0 auto;
   max-width: 800px;
-  width: 100%;
-  flex: 1;
+  position: relative;
 `;
 
 class Template extends React.Component {
@@ -30,14 +29,14 @@ class Template extends React.Component {
     return (
       <div>
         <Sidebar />
-        <div className={mainContainer}>
+        <MainContainer>
           <TopBar />
           <Scrollbars autoHide>
-            <div className={contentContainer}>
+            <ContentContainer>
               {children}
-            </div>
+            </ContentContainer>
           </Scrollbars>
-        </div>
+        </MainContainer>
       </div>
     );
   }
