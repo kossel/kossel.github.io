@@ -8,9 +8,7 @@ const SidebarWrapper = styled('aside')`
   width: 350px;
   height: 100vh;
   border-right: 1px solid #e2e2e2;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  float: left;
   @media (max-width: 991px) {
     display: none;
   }
@@ -20,7 +18,7 @@ const PostItemsList = styled('div')`
   padding: 32px 16px;
 `;
 
-const postItem = styled('div')`
+const PostItem = styled('div')`
   padding: 8px 16px;
 `;
 
@@ -86,13 +84,13 @@ class Sidebar extends React.Component {
                     posts.map(({ node }) => {
                       const title = get(node, 'frontmatter.title') || node.fields.slug;
                       return (
-                        <postItem key={node.fields.slug}>
+                        <PostItem key={node.fields.slug}>
                           <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
                             {
                               title
                             }
                           </Link>
-                        </postItem>
+                        </PostItem>
                       );
                     })
                   }

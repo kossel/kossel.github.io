@@ -16,7 +16,8 @@ const ContentContainer = styled('div')`
   padding:  0 16px;
   margin: 0 auto;
   max-width: 800px;
-  position: relative;
+  width: 100%;
+  flex: 1;
 `;
 
 class Template extends React.Component {

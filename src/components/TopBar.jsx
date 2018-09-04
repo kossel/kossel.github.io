@@ -4,7 +4,6 @@ import Link from 'gatsby-link';
 
 const wrapper = css`
   width: 100%;
-  position: relative;
   background-color: #fff;
   opacity: 0.9;
   z-index: 1;
