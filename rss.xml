@@ -1,4 +1,101 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Growing in the web]]></title><description><![CDATA[A collection of stuffs I found interesting]]></description><link>https://kossel.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Tue, 04 Sep 2018 04:11:51 GMT</lastBuildDate><item><title><![CDATA[Me]]></title><description><![CDATA[Hello world !]]></description><link>https://kossel.github.io//me/</link><guid isPermaLink="false">https://kossel.github.io//me/</guid><pubDate>Sun, 26 Aug 2018 22:44:08 GMT</pubDate><content:encoded>&lt;p&gt;Hello world !&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Default implementation of shouldComponentUnpdate]]></title><description><![CDATA[tl;dr According to  React documentation It just returns  You can also see it in the  source code  (react 16.2.0) When it’s   it does shallow…]]></description><link>https://kossel.github.io//default-implementation-of-shouldcomponentunpdate/</link><guid isPermaLink="false">https://kossel.github.io//default-implementation-of-shouldcomponentunpdate/</guid><pubDate>Wed, 13 Dec 2017 22:56:20 GMT</pubDate><content:encoded>&lt;p&gt;tl;dr&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Growing in the web]]></title><description><![CDATA[A collection of stuffs I found interesting]]></description><link>https://kossel.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Mon, 10 Sep 2018 04:03:20 GMT</lastBuildDate><item><title><![CDATA[React 16 time slicing trick]]></title><description><![CDATA[Normally React wants to keep the UI consistent with what you told it to render.
+So if you render then it will have to call render methods…]]></description><link>https://kossel.github.io//react-time-slicing/</link><guid isPermaLink="false">https://kossel.github.io//react-time-slicing/</guid><pubDate>Sun, 09 Sep 2018 22:47:10 GMT</pubDate><content:encoded>&lt;p&gt;Normally React wants to keep the UI consistent with what you told it to render.
+So if you render&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;function Slideshow() {
+  return (
+    &amp;lt;div&amp;gt;
+      &amp;lt;Expensive1 /&amp;gt;
+      &amp;lt;Expensive2 /&amp;gt;
+      &amp;lt;Expensive3 /&amp;gt;
+    &amp;lt;/div&amp;gt;
+  );
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;then it will have to call render methods and create DOM nodes for the whole trees of Expensive1, Expensive2, and Expensive3, when Slideshow is being mounted.&lt;/p&gt;
+&lt;p&gt;However, maybe you’re only showing Expensive1 on the first render, and Expensive2 and Expensive3 are not immediately visible. Like if this is really a side show.&lt;/p&gt;
+&lt;p&gt;Today, it’s idiomatic to render just the current node, e.g.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;function Slideshow(props) {
+  return (
+    &amp;lt;div&amp;gt;
+      {props.current === 0 &amp;amp;&amp;amp; &amp;lt;Expensive1 /&amp;gt;}
+      {props.current === 1 &amp;amp;&amp;amp; &amp;lt;Expensive2 /&amp;gt;}
+      {props.current === 2 &amp;amp;&amp;amp; &amp;lt;Expensive3 /&amp;gt;}
+    &amp;lt;/div&amp;gt;
+  );
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;The upside of this is that now your first render of &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&amp;gt;&lt;/code&gt; only includes Expensive1. However, the downside is that the moment you switch to &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={1} /&amp;gt;&lt;/code&gt;, you will experience jank from creating and rendering the whole Expensive2 tree.&lt;/p&gt;
+&lt;p&gt;Ideally what we want to do is to tell React that when we render &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&amp;gt;&lt;/code&gt;, we want to show Expensive1, but we want to start preparing Expensive2 when the browser is idle. This way it won’t block the initial render or cause jank, but by the time you click “next” Expensive2 might just already be complete, and in this case it’ll just replace the DOM node.&lt;/p&gt;
+&lt;p&gt;This is exactly what time slicing which I partially demoed in my talk will allow. Your code might look something like:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;function Slideshow(props) {
+  return (
+    &amp;lt;div&amp;gt;
+      &amp;lt;div hidden={props.current !== 0}&amp;gt;
+        &amp;lt;Expensive1 /&amp;gt;
+      &amp;lt;/div&amp;gt;
+      &amp;lt;div hidden={props.current !== 1}&amp;gt;
+        &amp;lt;Expensive2 /&amp;gt;
+      &amp;lt;/div&amp;gt;
+      &amp;lt;div hidden={props.current !== 2}&amp;gt;
+        &amp;lt;Expensive3 /&amp;gt;
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+  );
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Note that hidden is a real HTML attribute. (It acts similar to display: none.) But it could also serve as a hint to React that the tree inside it doesn’t actually need to be committed immediately — because it’s not visible anyway. Also note: this is not a final API, I’m just explaining what it lets you do.&lt;/p&gt;
+&lt;p&gt;So when you render &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&amp;gt;&lt;/code&gt;, React mounts&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&amp;gt;
+  &amp;lt;div hidden={false}&amp;gt;
+    &amp;lt;Expensive1 /&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;div hidden={true}&amp;gt;
+    &amp;lt;!-- not ready yet --&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;div hidden={true}&amp;gt;
+    &amp;lt;!-- not ready yet --&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;and whenever the browser is idle (e.g. when you look at the first slideshow item), it will start working on Expensive2 in small chunks. When it’s ready, it will just append it to the hidden div — which won’t be observable to the user because it’s hidden.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&amp;gt;
+  &amp;lt;div hidden={false}&amp;gt;
+    &amp;lt;Expensive1 /&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;div hidden={true}&amp;gt;
+    &amp;lt;!-- not visible, but prepared during idle periods and now ready! --&amp;gt;
+    &amp;lt;Expensive2 /&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;div hidden={true}&amp;gt;
+    &amp;lt;!-- not ready yet, but React will start working on it next --&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Now if you switch to &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={1} /&amp;gt;&lt;/code&gt;, React doesn’t need to do any extra rendering because it has already “prepared” Expensive2 ahead of time.&lt;/p&gt;
+&lt;p&gt;And if you switch too fast, and React hasn’t been able to fully prepare Expensive2 yet, it will just pick it up where it left off but set a much more aggressive deadline since we want to see results within ~150ms.&lt;/p&gt;
+&lt;p&gt;I hope this explains it a bit! The crucial part here is time slicing. This optimization wouldn’t make sense if pre-rendering Expensive2 or Expensive3 blocked the thread since in this case it wouldn’t be worth slowing down the interactions while Expensive1 is visible. But thanks to React’s architecture, we can actually start pre-rendering Expensive2 and Expensive3 in small chunks without blocking the thread, and that’s what will enable this optimization.&lt;/p&gt;
+&lt;p&gt;Source: &lt;a href=&quot;https://github.com/oliviertassinari/react-swipeable-views/issues/453#issuecomment-417939459&quot;&gt;github&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[How good are you with css]]></title><description><![CDATA[Given these classes: Which color would these divs be? Now see the answer ;) https://codepen.io/kossel/pen/PdEdLP]]></description><link>https://kossel.github.io//css-test/</link><guid isPermaLink="false">https://kossel.github.io//css-test/</guid><pubDate>Sun, 09 Sep 2018 22:40:20 GMT</pubDate><content:encoded>&lt;p&gt;Given these classes:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Which color would these divs be?&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;
+      &lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div class=&amp;quot;red blue&amp;quot;&amp;gt;hello&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;blue red&amp;quot;&amp;gt;hello&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Now see the answer ;)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/kossel/pen/PdEdLP&quot;&gt;https://codepen.io/kossel/pen/PdEdLP&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Me]]></title><description><![CDATA[Hello world !]]></description><link>https://kossel.github.io//me/</link><guid isPermaLink="false">https://kossel.github.io//me/</guid><pubDate>Sun, 26 Aug 2018 22:44:08 GMT</pubDate><content:encoded>&lt;p&gt;Hello world !&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Default implementation of shouldComponentUnpdate]]></title><description><![CDATA[tl;dr According to  React documentation It just returns  You can also see it in the  source code  (react 16.2.0) When it’s   it does shallow…]]></description><link>https://kossel.github.io//default-implementation-of-shouldcomponentunpdate/</link><guid isPermaLink="false">https://kossel.github.io//default-implementation-of-shouldcomponentunpdate/</guid><pubDate>Wed, 13 Dec 2017 22:56:20 GMT</pubDate><content:encoded>&lt;p&gt;tl;dr&lt;/p&gt;
 &lt;p&gt;According to &lt;a href=&quot;https://stackoverflow.com/questions/30571875/whats-the-difference-between-super-and-superprops-in-react-when-using-e&quot;&gt;React documentation&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;It just returns &lt;code class=&quot;language-text&quot;&gt;true&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;You can also see it in the &lt;a href=&quot;https://github.com/facebook/react/blob/1637b43e27c40c73f9489603145f9bb1d0ece618/packages/react-reconciler/src/ReactFiberClassComponent.js#L200&quot;&gt;source code&lt;/a&gt; (react 16.2.0)&lt;/p&gt;
