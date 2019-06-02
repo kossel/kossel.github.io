@@ -8,4 +8,4 @@ tags:
 ---
 Hello world !
 
-![](/uploads/p6.jpg)
+![](/uploads/p7.jpg)
