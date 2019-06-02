@@ -22,33 +22,7 @@ const PostItem = styled('div')`
   padding: 8px 16px;
 `;
 
-class Sidebar extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.scrollbar = null;
-  //   this.handleClick = this.handleClick.bind(this);
-  // }
-
-  // handleScroll() {
-  //   const distanceToTop = this.scrollbar.getValues().scrollTop;
-  //   if (distanceToTop === 0 && this.state.bioPin) {
-  //     this.setState({
-  //       bioPin: false,
-  //     });
-  //   } else if (distanceToTop > 0 && !this.state.bioPin) {
-  //     this.setState({
-  //       bioPin: true,
-  //     });
-  //   }
-  // }
-
-  // handleClick() {
-  //   this.setState(state => ({
-  //     bioPin: !state.bioPin,
-  //   }));
-  // }
-
-  render() {
+class Sidebar extends React.Component {  render() {
     return (
       <StaticQuery
         query={graphql`
@@ -75,9 +49,6 @@ class Sidebar extends React.Component {
             <SidebarWrapper>
               <Scrollbars
                 autoHide
-                // ref={(el) => {
-                //   this.scrollbar = el;
-                // }}
               >
                 <PostItemsList>
                   {
