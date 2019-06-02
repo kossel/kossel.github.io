@@ -22,7 +22,8 @@ const PostItem = styled('div')`
   padding: 8px 16px;
 `;
 
-class Sidebar extends React.Component {  render() {
+class Sidebar extends React.Component {
+  render() {
     return (
       <StaticQuery
         query={graphql`
