@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: kossel/kossel.github.io
-  branch: master
+  branch: source
   site_domain: inspiring-ride-8c4209.netlify.com
 
 media_folder: "images/uploads"
