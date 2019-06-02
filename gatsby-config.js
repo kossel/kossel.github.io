@@ -82,5 +82,6 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-emotion',
     },
+    'gatsby-plugin-netlify-cms'
   ],
 };
