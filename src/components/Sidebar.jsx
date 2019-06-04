@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'react-emotion';
-import { Scrollbars } from 'react-custom-scrollbars';
 import { Link, graphql, StaticQuery } from 'gatsby';
 import get from 'lodash/get';
 
@@ -12,6 +11,7 @@ const SidebarWrapper = styled('aside')`
   @media (max-width: 991px) {
     display: none;
   }
+  overflow: auto;
 `;
 
 const PostItemsList = styled('div')`
@@ -48,26 +48,22 @@ class Sidebar extends React.Component {
           if (!posts) return <div>loading...</div>;
           return (
             <SidebarWrapper>
-              <Scrollbars
-                autoHide
-              >
-                <PostItemsList>
-                  {
-                    posts.map(({ node }) => {
-                      const title = get(node, 'frontmatter.title') || node.fields.slug;
-                      return (
-                        <PostItem key={node.fields.slug}>
-                          <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                            {
-                              title
-                            }
-                          </Link>
-                        </PostItem>
-                      );
-                    })
-                  }
-                </PostItemsList>
-              </Scrollbars>
+              <PostItemsList>
+                {
+                  posts.map(({ node }) => {
+                    const title = get(node, 'frontmatter.title') || node.fields.slug;
+                    return (
+                      <PostItem key={node.fields.slug}>
+                        <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
+                          {
+                            title
+                          }
+                        </Link>
+                      </PostItem>
+                    );
+                  })
+                }
+              </PostItemsList>
             </SidebarWrapper>
           );
         }}
