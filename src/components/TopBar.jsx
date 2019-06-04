@@ -63,24 +63,33 @@ const HomeIcon = styled('svg')`
   
 `;
 
+const MenuItem = styled(Link)({
+  boxShadow: 'none',
+  textDecoration: 'none',
+  color: 'inherit',
+  margin: '0 8px',
+});
+
 class TopBar extends React.Component {
   render() {
     return (
       <div className={wrapper}>
         <NavItems>
-          <Link
-            style={{
-              boxShadow: 'none',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-            to="/"
-          >
-            <HomeIcon className="icon" aria-hidden="true">
-              <use xlinkHref="#icon-home" />
-            </HomeIcon>
-            <span style={{ verticalAlign: 'top' }}>Home</span>
-          </Link>
+          <span>
+            <MenuItem
+              to="/"
+            >
+              <HomeIcon className="icon" aria-hidden="true">
+                <use xlinkHref="#icon-home" />
+              </HomeIcon>
+              <span style={{ verticalAlign: 'top' }}>Home</span>
+            </MenuItem>
+            <MenuItem
+              to="/tags"
+            >
+              Tags
+            </MenuItem>
+          </span>
           <SocialMedias>
             <StyledLink to="/me">
               <SocialIcon className="icon" aria-hidden="true">

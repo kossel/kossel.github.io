@@ -15,17 +15,17 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/content/blog/`,
-        name: `blog`,
+        name: 'blog',
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/content/assets/`,
-        name: `assets`,
+        name: 'assets',
       },
     },
     {
@@ -82,6 +82,6 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-emotion',
     },
-    'gatsby-plugin-netlify-cms'
+    'gatsby-plugin-netlify-cms',
   ],
 };
