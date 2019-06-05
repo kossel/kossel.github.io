@@ -75,7 +75,7 @@ class TopBar extends React.Component {
     return (
       <div className={wrapper}>
         <NavItems>
-          <span>
+          <div style={{ display: 'flex' }}>
             <MenuItem
               to="/"
             >
@@ -89,7 +89,7 @@ class TopBar extends React.Component {
             >
               Tags
             </MenuItem>
-          </span>
+          </div>
           <SocialMedias>
             <StyledLink to="/me">
               <SocialIcon className="icon" aria-hidden="true">
