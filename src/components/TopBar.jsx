@@ -75,21 +75,14 @@ class TopBar extends React.Component {
     return (
       <div className={wrapper}>
         <NavItems>
-          <div style={{ display: 'flex' }}>
-            <MenuItem
-              to="/"
-            >
-              <HomeIcon className="icon" aria-hidden="true">
-                <use xlinkHref="#icon-home" />
-              </HomeIcon>
-              <span style={{ verticalAlign: 'top' }}>Home</span>
-            </MenuItem>
-            <MenuItem
-              to="/tags"
-            >
-              Tags
-            </MenuItem>
-          </div>
+          <MenuItem
+            to="/"
+          >
+            <HomeIcon className="icon" aria-hidden="true">
+              <use xlinkHref="#icon-home" />
+            </HomeIcon>
+            <span style={{ verticalAlign: 'top' }}>Home</span>
+          </MenuItem>
           <SocialMedias>
             <StyledLink to="/me">
               <SocialIcon className="icon" aria-hidden="true">

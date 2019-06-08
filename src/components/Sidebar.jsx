@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'react-emotion';
 import { Link, graphql, StaticQuery } from 'gatsby';
 import get from 'lodash/get';
+import uniq from 'lodash/uniq';
+import TagBar from './TagBar';
 
 const SidebarWrapper = styled('aside')`
   width: 350px;
@@ -23,6 +25,13 @@ const PostItem = styled('div')`
 `;
 
 class Sidebar extends React.Component {
+  constructor(props) {
+    super(props);
+    const uri = window.location.pathname;
+    const matched = uri.match(/(?<=tags\/).*/g);
+    this.currentTag = matched ? matched[0] : matched;
+  }
+
   render() {
     return (
       <StaticQuery
@@ -37,6 +46,7 @@ class Sidebar extends React.Component {
                   frontmatter {
                     date(formatString: "DD MMMM, YYYY")
                     title
+                    tags
                   }
                 }
               }
@@ -45,9 +55,18 @@ class Sidebar extends React.Component {
         `}
         render={(data) => {
           const posts = get(data, 'allMarkdownRemark.edges');
+          let tags = [];
+          posts.forEach((edge) => {
+            if (get(edge, 'node.frontmatter.tags')) {
+              tags = tags.concat(edge.node.frontmatter.tags);
+            }
+          });
+          tags = uniq(tags);
+
           if (!posts) return <div>loading...</div>;
           return (
             <SidebarWrapper>
+              <TagBar allTags={tags} selectedTag={this.currentTag} />
               <PostItemsList>
                 {
                   posts.map(({ node }) => {
