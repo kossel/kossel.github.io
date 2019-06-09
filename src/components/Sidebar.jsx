@@ -30,7 +30,7 @@ const PostItem = styled('div')`
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-    const uri = window ? window.location.pathname : '';
+    const uri = props.location.pathname;
     const matched = uri.match(/(?<=tags\/).*/g);
     this.state = {
       currentTag: matched ? matched[0] : matched,

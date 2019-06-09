@@ -29,10 +29,10 @@ class Template extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, location } = this.props;
     return (
       <div>
-        <Sidebar />
+        <Sidebar location={location} />
         <MainContainer>
           <TopBar />
           <ScrollArea>
