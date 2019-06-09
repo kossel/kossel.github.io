@@ -10,14 +10,17 @@ const SidebarWrapper = styled('aside')`
   height: 100vh;
   border-right: 1px solid #e2e2e2;
   float: left;
+  display: flex;
+  flex-direction: column;
   @media (max-width: 991px) {
     display: none;
   }
-  overflow: auto;
 `;
 
 const PostItemsList = styled('div')`
   padding: 32px 16px;
+  overflow: auto;
+  flex: 1;
 `;
 
 const PostItem = styled('div')`
@@ -29,7 +32,9 @@ class Sidebar extends React.Component {
     super(props);
     const uri = window.location.pathname;
     const matched = uri.match(/(?<=tags\/).*/g);
-    this.currentTag = matched ? matched[0] : matched;
+    this.state = {
+      currentTag: matched ? matched[0] : matched,
+    };
   }
 
   render() {
@@ -66,23 +71,27 @@ class Sidebar extends React.Component {
           if (!posts) return <div>loading...</div>;
           return (
             <SidebarWrapper>
-              <TagBar allTags={tags} selectedTag={this.currentTag} />
               <PostItemsList>
                 {
-                  posts.map(({ node }) => {
-                    const title = get(node, 'frontmatter.title') || node.fields.slug;
-                    return (
-                      <PostItem key={node.fields.slug}>
-                        <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                          {
-                            title
-                          }
-                        </Link>
-                      </PostItem>
-                    );
+                  posts.filter(({ node }) => {
+                    const postTags = get(node, 'frontmatter.tags') || node.fields.slug;
+                    return this.state.currentTag === null || postTags.indexOf(this.state.currentTag) >= 0;
                   })
+                    .map(({ node }) => {
+                      const title = get(node, 'frontmatter.title') || node.fields.slug;
+                      return (
+                        <PostItem key={node.fields.slug}>
+                          <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
+                            {
+                              title
+                            }
+                          </Link>
+                        </PostItem>
+                      );
+                    })
                 }
               </PostItemsList>
+              <TagBar allTags={tags} selectedTag={this.state.currentTag} />
             </SidebarWrapper>
           );
         }}
