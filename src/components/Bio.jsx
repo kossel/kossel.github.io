@@ -4,7 +4,6 @@ import styled, { css } from 'react-emotion';
 import { Spring, Transition, animated } from 'react-spring';
 import 'typeface-montserrat/index.css';
 import 'typeface-merriweather/index.css';
-import profilePic from '../assets/avatar2.jpg';
 
 const BioContainer = styled(animated.div)`
   display: flex;
