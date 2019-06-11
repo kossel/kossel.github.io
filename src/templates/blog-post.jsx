@@ -12,9 +12,9 @@ class BlogPostTemplate extends React.Component {
     const siteTitle = get(this.props, 'data.site.siteMetadata.title');
     const siteDescription = post.excerpt;
     const { previous, next } = this.props.pageContext;
-
+    const posts = get(this, 'props.data.allMarkdownRemark.edges');
     return (
-      <Layout location={this.props.location}>
+      <Layout location={this.props.location} posts={posts}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
@@ -88,6 +88,20 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+      }
+    }
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "DD MMMM, YYYY")
+            title
+          }
+        }
       }
     }
   }

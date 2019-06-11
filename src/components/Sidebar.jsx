@@ -28,14 +28,14 @@ const PostItem = styled('div')`
 `;
 
 class Sidebar extends React.Component {
-  constructor(props) {
-    super(props);
-    const uri = props.location.pathname;
-    const matched = uri.match(/(?<=tags\/).*/g);
-    this.state = {
-      currentTag: matched ? matched[0] : matched,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // const uri = props.location.pathname;
+  //   // const matched = uri.match(/(?<=tags\/).*/g);
+  //   // this.state = {
+  //   //   currentTag: matched ? matched[0] : matched,
+  //   // };
+  // }
 
   render() {
     return (
@@ -45,12 +45,7 @@ class Sidebar extends React.Component {
             allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
               edges {
                 node {
-                  fields {
-                    slug
-                  }
                   frontmatter {
-                    date(formatString: "DD MMMM, YYYY")
-                    title
                     tags
                   }
                 }
@@ -59,39 +54,36 @@ class Sidebar extends React.Component {
           }
         `}
         render={(data) => {
-          const posts = get(data, 'allMarkdownRemark.edges');
+          const postsTags = get(data, 'allMarkdownRemark.edges');
           let tags = [];
-          posts.forEach((edge) => {
+          postsTags.forEach((edge) => {
             if (get(edge, 'node.frontmatter.tags')) {
               tags = tags.concat(edge.node.frontmatter.tags);
             }
           });
           tags = uniq(tags);
 
-          if (!posts) return <div>loading...</div>;
+          const { posts } = this.props;
+          if (!posts || !postsTags) return <div>loading...</div>;
           return (
             <SidebarWrapper>
               <PostItemsList>
                 {
-                  posts.filter(({ node }) => {
-                    const postTags = get(node, 'frontmatter.tags') || node.fields.slug;
-                    return this.state.currentTag === null || postTags.indexOf(this.state.currentTag) >= 0;
+                  posts.map(({ node }) => {
+                    const title = get(node, 'frontmatter.title') || node.fields.slug;
+                    return (
+                      <PostItem key={node.fields.slug}>
+                        <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
+                          {
+                            title
+                          }
+                        </Link>
+                      </PostItem>
+                    );
                   })
-                    .map(({ node }) => {
-                      const title = get(node, 'frontmatter.title') || node.fields.slug;
-                      return (
-                        <PostItem key={node.fields.slug}>
-                          <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                            {
-                              title
-                            }
-                          </Link>
-                        </PostItem>
-                      );
-                    })
                 }
               </PostItemsList>
-              <TagBar allTags={tags} selectedTag={this.state.currentTag} />
+              <TagBar allTags={tags} />
             </SidebarWrapper>
           );
         }}

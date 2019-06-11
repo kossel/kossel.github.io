@@ -7,7 +7,7 @@ const Contaienr = styled('div')({
   padding: '16px 8px',
 });
 
-const TagBar = ({ allTags, selectedTag }) => {
+const TagBar = ({ allTags = [], selectedTag }) => {
   const allTag = (
     <Tag
       key="all-tags"
