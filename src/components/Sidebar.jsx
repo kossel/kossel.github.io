@@ -28,14 +28,20 @@ const PostItem = styled('div')`
 `;
 
 class Sidebar extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   // const uri = props.location.pathname;
-  //   // const matched = uri.match(/(?<=tags\/).*/g);
-  //   // this.state = {
-  //   //   currentTag: matched ? matched[0] : matched,
-  //   // };
-  // }
+  constructor(props) {
+    super(props);
+    const uri = props.location.pathname;
+    const matched = uri.match(/(?<=tags\/)[^/]*/g);
+    this.currentTag = matched ? matched[0] : matched;
+    this.getPostLink = this.getPostLink.bind(this);
+  }
+
+  getPostLink(node) {
+    if (this.currentTag) {
+      return `/tags/${this.currentTag}${node.fields.slug}`;
+    }
+    return node.fields.slug;
+  }
 
   render() {
     return (
@@ -73,7 +79,7 @@ class Sidebar extends React.Component {
                     const title = get(node, 'frontmatter.title') || node.fields.slug;
                     return (
                       <PostItem key={node.fields.slug}>
-                        <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
+                        <Link style={{ boxShadow: 'none' }} to={this.getPostLink(node)}>
                           {
                             title
                           }
