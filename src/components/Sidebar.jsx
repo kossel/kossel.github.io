@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'react-emotion';
+import styled, { css } from 'react-emotion';
 import { Link, graphql, StaticQuery } from 'gatsby';
 import get from 'lodash/get';
 import uniq from 'lodash/uniq';
@@ -25,6 +25,19 @@ const PostItemsList = styled('div')`
 
 const PostItem = styled('div')`
   padding: 8px 16px;
+`;
+
+const activeLink = css`
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 1px,
+    #1ca086 1px, #1ca086 2px,
+    rgba(0, 0, 0, 0) 2px);
+  text-shadow: 0.03em 0 #fff, -0.03em 0 #fff,
+    0 0.03em #fff, 0 -0.03em #fff,
+    0.06em 0 #fff, -0.06em 0 #fff,
+    0.09em 0 #fff, -0.09em 0 #fff,
+    0.12em 0 #fff, -0.12em 0 #fff,
+    0.15em 0 #fff, -0.15em 0 #fff;
 `;
 
 class Sidebar extends React.Component {
@@ -79,7 +92,11 @@ class Sidebar extends React.Component {
                     const title = get(node, 'frontmatter.title') || node.fields.slug;
                     return (
                       <PostItem key={node.fields.slug}>
-                        <Link style={{ boxShadow: 'none' }} to={this.getPostLink(node)}>
+                        <Link
+                          style={{ boxShadow: 'none' }}
+                          to={this.getPostLink(node)}
+                          activeClassName={activeLink}
+                        >
                           {
                             title
                           }
