@@ -43,15 +43,13 @@ const activeLink = css`
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-    const uri = props.location.pathname;
-    const matched = uri.match(/(?<=tags\/)[^/]*/g);
-    this.currentTag = matched ? matched[0] : matched;
     this.getPostLink = this.getPostLink.bind(this);
   }
 
   getPostLink(node) {
-    if (this.currentTag) {
-      return `/tags/${this.currentTag}${node.fields.slug}`;
+    const { selectedTag } = this.props;
+    if (selectedTag) {
+      return `/tags/${selectedTag}${node.fields.slug}`;
     }
     return node.fields.slug;
   }
@@ -80,6 +78,7 @@ class Sidebar extends React.Component {
               tags = tags.concat(edge.node.frontmatter.tags);
             }
           });
+          const { selectedTag } = this.props;
           tags = uniq(tags);
 
           const { posts } = this.props;
@@ -106,7 +105,7 @@ class Sidebar extends React.Component {
                   })
                 }
               </PostItemsList>
-              <TagBar allTags={tags} selectedTag={this.currentTag} />
+              <TagBar allTags={tags} selectedTag={selectedTag} />
             </SidebarWrapper>
           );
         }}

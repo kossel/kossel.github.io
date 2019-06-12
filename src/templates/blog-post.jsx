@@ -13,8 +13,9 @@ class BlogPostTemplate extends React.Component {
     const siteDescription = post.excerpt;
     const { previous, next } = this.props.pageContext;
     const posts = get(this, 'props.data.allMarkdownRemark.edges');
+    const selectedTag = this.props.pageContext.tag;
     return (
-      <Layout location={this.props.location} posts={posts}>
+      <Layout location={this.props.location} posts={posts} selectedTag={selectedTag}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}

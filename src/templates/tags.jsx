@@ -13,8 +13,9 @@ class BlogPostTemplate extends React.Component {
       'props.data.site.siteMetadata.description',
     );
     const posts = get(this, 'props.data.allMarkdownRemark.edges');
+    const selectedTag = this.props.pageContext.tag;
     return (
-      <Layout location={this.props.location} posts={posts}>
+      <Layout selectedTag={selectedTag} location={this.props.location} posts={posts}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
@@ -25,7 +26,7 @@ class BlogPostTemplate extends React.Component {
           return (
             <div key={node.fields.slug}>
               <h3>
-                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
+                <Link style={{ boxShadow: 'none' }} to={`/tags/${selectedTag}${node.fields.slug}`}>
                   {postTitle}
                 </Link>
               </h3>

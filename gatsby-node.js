@@ -59,8 +59,6 @@ exports.createPages = ({ graphql, actions }) => {
               context: {
                 slug: post.node.fields.slug,
                 tag: postTag,
-                previous,
-                next,
               },
             });
           })
@@ -82,7 +80,7 @@ exports.createPages = ({ graphql, actions }) => {
             path: `/tags/${_.kebabCase(tag)}`,
             component: tagTemplate,
             context: {
-              tag,
+              tag: _.kebabCase(tag),
             },
           });
         });
