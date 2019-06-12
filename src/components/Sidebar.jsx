@@ -89,7 +89,7 @@ class Sidebar extends React.Component {
                   })
                 }
               </PostItemsList>
-              <TagBar allTags={tags} />
+              <TagBar allTags={tags} selectedTag={this.currentTag} />
             </SidebarWrapper>
           );
         }}
