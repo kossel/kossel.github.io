@@ -89,7 +89,7 @@ class Sidebar extends React.Component {
           });
           tags = uniq(tags);
 
-          if (!allPosts) return <div>loading...</div>;
+          if (!allPosts || !posts) return <div>loading...</div>;
           const tagToFilter =
             selectedTag || get(this.props, 'location.state.selectedTag');
           return (
