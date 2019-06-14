@@ -4,7 +4,6 @@ import styled from 'react-emotion';
 import 'prismjs/themes/prism-solarizedlight.css';
 import TopBar from './TopBar';
 import Sidebar from './Sidebar';
-import '../utils/usesvg';
 
 const MainContainer = styled('div')`
   height: 100vh;
@@ -25,6 +24,10 @@ const ScrollArea = styled('div')`
 `;
 
 class Template extends React.Component {
+  componentDidMount() {
+    import '../utils/usesvg';
+  }
+
   render() {
     const { children, location, posts, selectedTag } = this.props;
     return (
