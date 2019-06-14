@@ -13,17 +13,14 @@ class BlogPostTemplate extends React.Component {
     const siteDescription = post.excerpt;
     const { previous, next } = this.props.pageContext;
     const posts = get(this, 'props.data.allMarkdownRemark.edges');
-    const selectedTag = this.props.pageContext.tag;
     return (
-      <Layout location={this.props.location} posts={posts} selectedTag={selectedTag}>
+      <Layout location={this.props.location} posts={posts}>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
-        <h1>
-          {post.frontmatter.title}
-        </h1>
+        <h1>{post.frontmatter.title}</h1>
         <p
           style={{
             ...scale(-1 / 5),
@@ -101,6 +98,7 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "DD MMMM, YYYY")
             title
+            tags
           }
         }
       }

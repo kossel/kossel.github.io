@@ -10,12 +10,18 @@ class BlogPostTemplate extends React.Component {
     const siteTitle = get(this, 'props.data.site.siteMetadata.title');
     const siteDescription = get(
       this,
-      'props.data.site.siteMetadata.description',
+      'props.data.site.siteMetadata.description'
     );
     const posts = get(this, 'props.data.allMarkdownRemark.edges');
     const selectedTag = this.props.pageContext.tag;
+    const tagToFilter =
+      selectedTag || get(this.props, 'location.state.selectedTag');
     return (
-      <Layout selectedTag={selectedTag} location={this.props.location} posts={posts}>
+      <Layout
+        selectedTag={selectedTag}
+        location={this.props.location}
+        posts={posts}
+      >
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
@@ -26,7 +32,13 @@ class BlogPostTemplate extends React.Component {
           return (
             <div key={node.fields.slug}>
               <h3>
-                <Link style={{ boxShadow: 'none' }} to={`/tags/${selectedTag}${node.fields.slug}`}>
+                <Link
+                  style={{ boxShadow: 'none' }}
+                  to={node.fields.slug}
+                  state={{
+                    selectedTag: tagToFilter,
+                  }}
+                >
                   {postTitle}
                 </Link>
               </h3>
@@ -67,6 +79,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             date(formatString: "MMMM DD, YYYY")
+            tags
           }
         }
       }

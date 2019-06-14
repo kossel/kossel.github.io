@@ -16,7 +16,7 @@ module.exports = {
       "jsx": true,
     },
   },
-  "extends": "airbnb",
+  "extends": ["airbnb", "plugin:prettier/recommended"],
   "rules": {
     "react/forbid-prop-types": 0,
     "import/no-extraneous-dependencies": 0,

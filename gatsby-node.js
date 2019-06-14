@@ -9,7 +9,7 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.jsx');
     const tagTemplate = path.resolve('./src/templates/tags.jsx');
-    const tagPostTemplate = path.resolve('./src/templates/tag-post.jsx');
+    // const tagPostTemplate = path.resolve('./src/templates/tag-post.jsx');
 
     resolve(
       graphql(`
@@ -50,18 +50,18 @@ exports.createPages = ({ graphql, actions }) => {
             },
           });
 
-          const postTags = _.get(post, 'node.frontmatter.tags');
+          // const postTags = _.get(post, 'node.frontmatter.tags');
 
-          postTags.forEach(postTag => {
-            createPage({
-              path: `/tags/${_.kebabCase(postTag)}${post.node.fields.slug}`,
-              component: tagPostTemplate,
-              context: {
-                slug: post.node.fields.slug,
-                tag: postTag,
-              },
-            });
-          })
+          // postTags.forEach(postTag => {
+          //   createPage({
+          //     path: `/tags/${_.kebabCase(postTag)}${post.node.fields.slug}`,
+          //     component: tagPostTemplate,
+          //     context: {
+          //       slug: post.node.fields.slug,
+          //       tag: postTag,
+          //     },
+          //   });
+          // })
         });
 
         // Tag pages:

@@ -28,41 +28,50 @@ const PostItem = styled('div')`
 `;
 
 const activeLink = css`
-  background-image: linear-gradient(to top, rgba(0, 0, 0, 0),
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0),
     rgba(0, 0, 0, 0) 1px,
-    #1ca086 1px, #1ca086 2px,
-    rgba(0, 0, 0, 0) 2px);
-  text-shadow: 0.03em 0 #fff, -0.03em 0 #fff,
-    0 0.03em #fff, 0 -0.03em #fff,
-    0.06em 0 #fff, -0.06em 0 #fff,
-    0.09em 0 #fff, -0.09em 0 #fff,
-    0.12em 0 #fff, -0.12em 0 #fff,
-    0.15em 0 #fff, -0.15em 0 #fff;
+    #1ca086 1px,
+    #1ca086 2px,
+    rgba(0, 0, 0, 0) 2px
+  );
+  text-shadow: 0.03em 0 #fff, -0.03em 0 #fff, 0 0.03em #fff, 0 -0.03em #fff,
+    0.06em 0 #fff, -0.06em 0 #fff, 0.09em 0 #fff, -0.09em 0 #fff, 0.12em 0 #fff,
+    -0.12em 0 #fff, 0.15em 0 #fff, -0.15em 0 #fff;
 `;
 
 class Sidebar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getPostLink = this.getPostLink.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.getPostLink = this.getPostLink.bind(this);
+  // }
 
-  getPostLink(node) {
-    const { selectedTag } = this.props;
-    if (selectedTag) {
-      return `/tags/${selectedTag}${node.fields.slug}`;
-    }
-    return node.fields.slug;
-  }
+  // getPostLink(node) {
+  //   // console.log(this.props.location.state);
+  //   // const selectedTag = get(this.props, 'location.state.selectedTag');
+  //   // if (selectedTag) {
+  //   //   return `/tags/${selectedTag}${node.fields.slug}`;
+  //   // }
+  //   return node.fields.slug;
+  // }
 
   render() {
+    const { selectedTag, posts } = this.props;
     return (
       <StaticQuery
         query={graphql`
           query {
-            allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+            allMarkdownRemark(
+              sort: { fields: [frontmatter___date], order: DESC }
+            ) {
               edges {
                 node {
+                  fields {
+                    slug
+                  }
                   frontmatter {
+                    title
                     tags
                   }
                 }
@@ -70,42 +79,50 @@ class Sidebar extends React.Component {
             }
           }
         `}
-        render={(data) => {
-          const postsTags = get(data, 'allMarkdownRemark.edges');
+        render={data => {
+          const allPosts = get(data, 'allMarkdownRemark.edges');
           let tags = [];
-          postsTags.forEach((edge) => {
+          allPosts.forEach(edge => {
             if (get(edge, 'node.frontmatter.tags')) {
               tags = tags.concat(edge.node.frontmatter.tags);
             }
           });
-          const { selectedTag } = this.props;
           tags = uniq(tags);
 
-          const { posts } = this.props;
-          if (!posts || !postsTags) return <div>loading...</div>;
+          if (!allPosts) return <div>loading...</div>;
+          const tagToFilter =
+            selectedTag || get(this.props, 'location.state.selectedTag');
           return (
             <SidebarWrapper>
               <PostItemsList>
-                {
-                  posts.map(({ node }) => {
-                    const title = get(node, 'frontmatter.title') || node.fields.slug;
+                {posts
+                  .filter(({ node }) => {
+                    const postTags = get(node, 'frontmatter.tags');
+                    if (!tagToFilter) {
+                      return true;
+                    }
+                    return postTags.indexOf(tagToFilter) >= 0;
+                  })
+                  .map(({ node }) => {
+                    const title =
+                      get(node, 'frontmatter.title') || node.fields.slug;
                     return (
                       <PostItem key={node.fields.slug}>
                         <Link
                           style={{ boxShadow: 'none' }}
-                          to={this.getPostLink(node)}
+                          to={node.fields.slug}
                           activeClassName={activeLink}
+                          state={{
+                            selectedTag: tagToFilter,
+                          }}
                         >
-                          {
-                            title
-                          }
+                          {title}
                         </Link>
                       </PostItem>
                     );
-                  })
-                }
+                  })}
               </PostItemsList>
-              <TagBar allTags={tags} selectedTag={selectedTag} />
+              <TagBar allTags={tags} selectedTag={tagToFilter} />
             </SidebarWrapper>
           );
         }}

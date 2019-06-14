@@ -9,11 +9,7 @@ const Contaienr = styled('div')({
 
 const TagBar = ({ allTags = [], selectedTag }) => {
   const allTag = (
-    <Tag
-      key="all-tags"
-      url="/"
-      selected={!selectedTag}
-    >
+    <Tag key="all-tags" url="/" selected={!selectedTag}>
       All
     </Tag>
   );
@@ -22,16 +18,13 @@ const TagBar = ({ allTags = [], selectedTag }) => {
       key={kebabCase(tag)}
       url={`/tags/${kebabCase(tag)}`}
       selected={selectedTag && selectedTag.indexOf(tag) >= 0}
+      tag={tag}
     >
       {tag}
     </Tag>
   ));
 
-  return (
-    <Contaienr>
-      {[allTag, ...allTagsItems]}
-    </Contaienr>
-  );
+  return <Contaienr>{[allTag, ...allTagsItems]}</Contaienr>;
 };
 
 export default TagBar;

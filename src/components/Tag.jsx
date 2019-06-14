@@ -22,13 +22,10 @@ const removeLinkStyle = css({
   },
 });
 
-const Tag = ({ children, url, selected }) => (
-  <Link to={url} className={removeLinkStyle}>
-    <TagItem selected={selected}>
-      {children}
-    </TagItem>
+const Tag = ({ children, url, selected, tag }) => (
+  <Link to={url} className={removeLinkStyle} state={{ selectedTag: tag }}>
+    <TagItem selected={selected}>{children}</TagItem>
   </Link>
 );
-
 
 export default Tag;

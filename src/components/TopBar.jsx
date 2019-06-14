@@ -27,7 +27,8 @@ const SocialItem = styled('a')`
   color: black;
   display: inline-block;
   opacity: 0.6;
-  &:hover, active {
+  &:hover,
+  active {
     background-image: none;
     text-shadow: none;
   }
@@ -39,7 +40,8 @@ const StyledLink = styled(Link)`
   box-shadow: none;
   text-decoration: none;
   color: inherit;
-  &:hover, active {
+  &:hover,
+  active {
     background-image: none;
     text-shadow: none;
   }
@@ -60,7 +62,6 @@ const HomeIcon = styled('svg')`
   margin-right: 8px;
   width: 24px;
   height: 24px;
-  
 `;
 
 const MenuItem = styled(Link)({
@@ -75,9 +76,7 @@ class TopBar extends React.Component {
     return (
       <div className={wrapper}>
         <NavItems>
-          <MenuItem
-            to="/"
-          >
+          <MenuItem to="/">
             <HomeIcon className="icon" aria-hidden="true">
               <use xlinkHref="#icon-home" />
             </HomeIcon>
@@ -89,7 +88,10 @@ class TopBar extends React.Component {
                 <use xlinkHref="#icon-me" />
               </SocialIcon>
             </StyledLink>
-            <SocialItem href="https://stackoverflow.com/users/247869/yichaoz" target="_BLANK">
+            <SocialItem
+              href="https://stackoverflow.com/users/247869/yichaoz"
+              target="_BLANK"
+            >
               <SocialIcon className="icon" aria-hidden="true">
                 <use xlinkHref="#icon-github" />
               </SocialIcon>

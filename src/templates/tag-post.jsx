@@ -14,15 +14,17 @@ class BlogPostTemplate extends React.Component {
     const posts = get(this, 'props.data.allMarkdownRemark.edges');
     const selectedTag = this.props.pageContext.tag;
     return (
-      <Layout location={this.props.location} posts={posts} selectedTag={selectedTag}>
+      <Layout
+        location={this.props.location}
+        posts={posts}
+        selectedTag={selectedTag}
+      >
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           meta={[{ name: 'description', content: siteDescription }]}
           title={`${post.frontmatter.title} | ${siteTitle}`}
         />
-        <h1>
-          {post.frontmatter.title}
-        </h1>
+        <h1>{post.frontmatter.title}</h1>
         <p
           style={{
             ...scale(-1 / 5),
