@@ -25,7 +25,7 @@ const ScrollArea = styled('div')`
 
 class Template extends React.Component {
   componentDidMount() {
-    import '../utils/usesvg';
+    require('../utils/usesvg');
   }
 
   render() {
