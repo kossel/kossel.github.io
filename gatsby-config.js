@@ -29,6 +29,13 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-netlify-cms-paths',
+      options: {
+        // Path to your Netlify CMS config file
+        cmsConfig: '/static/admin/config.yml',
+      },
+    },
+    {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
@@ -47,6 +54,7 @@ module.exports = {
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          'gatsby-plugin-netlify-cms-paths',
         ],
       },
     },
