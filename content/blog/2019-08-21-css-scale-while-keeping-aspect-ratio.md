@@ -1,5 +1,5 @@
 ---
-title: CSS scale while keeping aspect ratio
+title: CSS scale content while keeping aspect ratio
 date: 2019-08-22T02:47:30.911Z
 tags:
   - css
