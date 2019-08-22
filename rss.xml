@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Growing in the web]]></title><description><![CDATA[A collection of stuffs I found interesting]]></description><link>https://kossel.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Thu, 22 Aug 2019 03:50:26 GMT</lastBuildDate><item><title><![CDATA[CSS scale content while keeping aspect ratio]]></title><description><![CDATA[There sometimes we have a div like these :But we would like independently of the screen size, they should always be square, which means has…]]></description><link>https://kossel.github.io//2019-08-21-css-scale-while-keeping-aspect-ratio/</link><guid isPermaLink="false">https://kossel.github.io//2019-08-21-css-scale-while-keeping-aspect-ratio/</guid><pubDate>Thu, 22 Aug 2019 02:47:30 GMT</pubDate><content:encoded>&lt;p&gt;There sometimes we have a div like these :&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/static/images/uploads/cafdsfdsdpture.jpg&quot; title=&quot;divs&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Growing in the web]]></title><description><![CDATA[A collection of stuffs I found interesting]]></description><link>https://kossel.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Thu, 22 Aug 2019 04:08:41 GMT</lastBuildDate><item><title><![CDATA[CSS scale content while keeping aspect ratio]]></title><description><![CDATA[There sometimes we have a div like these :But we would like independently of the screen size, they should always be square, which means has…]]></description><link>https://kossel.github.io//2019-08-21-css-scale-while-keeping-aspect-ratio/</link><guid isPermaLink="false">https://kossel.github.io//2019-08-21-css-scale-while-keeping-aspect-ratio/</guid><pubDate>Thu, 22 Aug 2019 02:47:30 GMT</pubDate><content:encoded>&lt;p&gt;There sometimes we have a div like these :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/uploads/cafdsfdsdpture.jpg&quot; title=&quot;divs&quot;&gt;&lt;/p&gt;
 &lt;p&gt;But we would like independently of the screen size, they should always be square, which means has exactly the same height as width (which is always 50%), or in order word, we would like to scale it while keeping the same aspect ratio.&lt;/p&gt;
 &lt;p&gt;The trick is use &lt;strong&gt;padding in percentage,&lt;/strong&gt; why?&lt;/p&gt;
 &lt;blockquote&gt;
@@ -12,7 +12,7 @@
   &lt;span class=&quot;token property&quot;&gt;padding-top&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 50%&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;we can create a padding with exact same of the width (50% of the screen)&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/static/images/uploads/captfgbvccbcvure.jpg&quot; title=&quot;50% padding&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/uploads/captfgbvccbcvure.jpg&quot; title=&quot;50% padding&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Now we can just position absolute the photo element and fill the container&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;css&quot;&gt;&lt;pre class=&quot;language-css&quot;&gt;&lt;code class=&quot;language-css&quot;&gt;&lt;span class=&quot;token selector&quot;&gt;.aspect-ratio-box&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token property&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 50%&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -30,10 +30,10 @@
   ...
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and we will get the desired look;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/static/images/uploads/cavcvxcvpture.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/uploads/cavcvxcvpture.jpg&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Using the same concept we can also force the div to be 4:3 ratio or 16:9 ratio;&lt;/p&gt;
 &lt;p&gt;eg: &lt;code class=&quot;language-text&quot;&gt;3/4 = 75%&lt;/code&gt; or  &lt;code class=&quot;language-text&quot;&gt;9/16 = 56.25%&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/static/images/uploads/captufdsbvre.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/uploads/captufdsbvre.jpg&quot;&gt;&lt;/p&gt;
 &lt;p&gt;sample code: &lt;a href=&quot;https://codepen.io/kossel/pen/BaBQMYB&quot;&gt;https://codepen.io/kossel/pen/BaBQMYB&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 16 time slicing trick]]></title><description><![CDATA[Normally React wants to keep the UI consistent with what you told it to render.
 So if you renderthen it will have to call render methods and…]]></description><link>https://kossel.github.io//react-time-slicing/</link><guid isPermaLink="false">https://kossel.github.io//react-time-slicing/</guid><pubDate>Sun, 09 Sep 2018 22:47:10 GMT</pubDate><content:encoded>&lt;p&gt;Normally React wants to keep the UI consistent with what you told it to render.
 So if you render&lt;/p&gt;
