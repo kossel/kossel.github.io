@@ -88,15 +88,15 @@ class TopBar extends React.Component {
                 <use xlinkHref="#icon-me" />
               </SocialIcon>
             </StyledLink>
-            <SocialItem
-              href="https://stackoverflow.com/users/247869/yichaoz"
-              target="_BLANK"
-            >
+            <SocialItem href="https://github.com/kossel" target="_BLANK">
               <SocialIcon className="icon" aria-hidden="true">
                 <use xlinkHref="#icon-github" />
               </SocialIcon>
             </SocialItem>
-            <SocialItem href="https://github.com/kossel" target="_BLANK">
+            <SocialItem
+              href="https://stackoverflow.com/users/247869/yichaoz"
+              target="_BLANK"
+            >
               <SocialIcon className="icon" aria-hidden="true">
                 <use xlinkHref="#icon-stack-overflow" />
               </SocialIcon>
