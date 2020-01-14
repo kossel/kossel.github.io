@@ -4,7 +4,6 @@ import styled, { css } from 'react-emotion';
 import { Spring, Transition, animated } from 'react-spring';
 import 'typeface-montserrat/index.css';
 import 'typeface-merriweather/index.css';
-import profilePic from '../assets/avatar2.jpg';
 
 const BioContainer = styled(animated.div)`
   display: flex;
@@ -30,10 +29,22 @@ const AvatarCircle = styled('div')`
   height: 100%;
   position: absolute;
   border-radius: 100%;
-  background: rgb(255,255,255); /* Old browsers */
-  background: -moz-linear-gradient(-45deg, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
-  background: -webkit-linear-gradient(-45deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
-  background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+  background: rgb(255, 255, 255); /* Old browsers */
+  background: -moz-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(229, 229, 229, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(229, 229, 229, 1) 100%
+  );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(229, 229, 229, 1) 100%
+  );
 `;
 
 const ProfilePicture = styled('div')`
@@ -56,35 +67,31 @@ class Bio extends React.PureComponent {
           to={{
             width: shouldPin ? '64px' : '100px',
             height: shouldPin ? '64px' : '100px',
-            transform: shouldPin ? 'translate(-120px, 24px)' : 'translate(0px, 0px)',
+            transform: shouldPin
+              ? 'translate(-120px, 24px)'
+              : 'translate(0px, 0px)',
           }}
         >
-          {
-            styles => (
-              <ProfilePicture style={styles}>
-                <img
-                  className={avatarStyle}
-                  src={profilePic}
-                  alt="Yichao"
-                />
-                <AvatarCircle />
-              </ProfilePicture>
-            )
-          }
+          {styles => (
+            <ProfilePicture style={styles}>
+              <img className={avatarStyle} src={profilePic} alt="Yichao" />
+              <AvatarCircle />
+            </ProfilePicture>
+          )}
         </Spring>
         <Spring
           to={{
             fontSize: shouldPin ? '16px' : '24px',
-            transform: shouldPin ? 'translate(-36px, -36px)' : 'translate(0px, 0px)',
+            transform: shouldPin
+              ? 'translate(-36px, -36px)'
+              : 'translate(0px, 0px)',
           }}
         >
-          {
-            styles => (
-              <ProfileName style={styles}>
-                <strong>Yichaoz</strong>
-              </ProfileName>
-            )
-          }
+          {styles => (
+            <ProfileName style={styles}>
+              <strong>Yichaoz</strong>
+            </ProfileName>
+          )}
         </Spring>
         <Transition
           native
@@ -93,19 +100,17 @@ class Bio extends React.PureComponent {
             opacity: shouldPin ? 1 : 0,
           }}
         >
-          {
-            ({ y, opacity }) => (
-              <animated.span
-                style={{
-                  opacity,
-                  position: 'absolute',
-                  transform: y.interpolate(val => `translateY(${val}px)`),
-                }}
-              >
-                <small>Software Engineer</small>
-              </animated.span>
-            )
-          }
+          {({ y, opacity }) => (
+            <animated.span
+              style={{
+                opacity,
+                position: 'absolute',
+                transform: y.interpolate(val => `translateY(${val}px)`),
+              }}
+            >
+              <small>Software Engineer</small>
+            </animated.span>
+          )}
         </Transition>
       </BioContainer>
     );

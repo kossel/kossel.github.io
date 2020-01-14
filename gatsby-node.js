@@ -8,6 +8,9 @@ exports.createPages = ({ graphql, actions }) => {
 
   return new Promise((resolve, reject) => {
     const blogPost = path.resolve('./src/templates/blog-post.jsx');
+    const tagTemplate = path.resolve('./src/templates/tags.jsx');
+    // const tagPostTemplate = path.resolve('./src/templates/tag-post.jsx');
+
     resolve(
       graphql(`
         {
@@ -19,6 +22,7 @@ exports.createPages = ({ graphql, actions }) => {
                 }
                 frontmatter {
                   title
+                  tags
                 }
               }
             }
@@ -45,7 +49,44 @@ exports.createPages = ({ graphql, actions }) => {
               next,
             },
           });
+
+          // const postTags = _.get(post, 'node.frontmatter.tags');
+
+          // postTags.forEach(postTag => {
+          //   createPage({
+          //     path: `/tags/${_.kebabCase(postTag)}${post.node.fields.slug}`,
+          //     component: tagPostTemplate,
+          //     context: {
+          //       slug: post.node.fields.slug,
+          //       tag: postTag,
+          //     },
+          //   });
+          // })
         });
+
+        // Tag pages:
+        let tags = [];
+        // Iterate through each post, putting all found tags into `tags`
+        _.each(posts, (edge) => {
+          if (_.get(edge, 'node.frontmatter.tags')) {
+            tags = tags.concat(edge.node.frontmatter.tags);
+          }
+        });
+        // Eliminate duplicate tags
+        tags = _.uniq(tags);
+        // Make tag pages
+        tags.forEach((tag) => {
+          createPage({
+            path: `/tags/${_.kebabCase(tag)}`,
+            component: tagTemplate,
+            context: {
+              tag: _.kebabCase(tag),
+            },
+          });
+        });
+
+        // generate tag pages
+
       }),
     );
   });

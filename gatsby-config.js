@@ -10,8 +10,29 @@ module.exports = {
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/pages`,
+        path: `${__dirname}/content/pages/`,
         name: 'pages',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/content/blog/`,
+        name: 'blog',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/content/assets/`,
+        name: 'assets',
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-netlify-cms-paths',
+      options: {
+        // Path to your Netlify CMS config file
+        cmsConfig: '/static/admin/config.yml',
       },
     },
     {
@@ -33,6 +54,7 @@ module.exports = {
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
+          'gatsby-plugin-netlify-cms-paths',
         ],
       },
     },
@@ -54,7 +76,7 @@ module.exports = {
         background_color: '#ffffff',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: 'src/assets/gatsby-icon.png',
+        icon: 'content/assets/gatsby-icon.png',
       },
     },
     'gatsby-plugin-react-helmet',
@@ -68,5 +90,6 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-emotion',
     },
+    'gatsby-plugin-netlify-cms',
   ],
 };
