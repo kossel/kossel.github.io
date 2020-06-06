@@ -3,7 +3,7 @@ title: React 16 time slicing trick
 date: 2018-09-09 22:47:10
 tags:
 - reactjs
-- javasccript
+- javascript
 ---
 
 Normally React wants to keep the UI consistent with what you told it to render.

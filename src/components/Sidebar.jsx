@@ -42,20 +42,6 @@ const activeLink = css`
 `;
 
 class Sidebar extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.getPostLink = this.getPostLink.bind(this);
-  // }
-
-  // getPostLink(node) {
-  //   // console.log(this.props.location.state);
-  //   // const selectedTag = get(this.props, 'location.state.selectedTag');
-  //   // if (selectedTag) {
-  //   //   return `/tags/${selectedTag}${node.fields.slug}`;
-  //   // }
-  //   return node.fields.slug;
-  // }
-
   render() {
     const { selectedTag, posts } = this.props;
     return (

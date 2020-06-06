@@ -1,7 +1,7 @@
 ---
 title: Why call super or super(props)
 date: 2017-12-13 22:44:08
-tags: [reactjs, javasccript]
+tags: [reactjs, javascript]
 ---
 
 In react world, many time we call `super` and `super(props)`, I do that and saw in many places, however I've never asked myself what does it actually do...
