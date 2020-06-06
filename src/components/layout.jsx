@@ -25,7 +25,7 @@ const ScrollArea = styled('div')`
 
 class Template extends React.Component {
   componentDidMount() {
-    require('../utils/usesvg');
+    require('../utils/usesvg'); // eslint-disable-line global-require
   }
 
   render() {
