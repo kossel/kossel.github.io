@@ -18,7 +18,7 @@ Each permission is a bit in the binary position, eg. first bit represent has `ex
 
 Follow this we can do a very simple permission assignment and check system.
 
-```
+```javascript
 const PERMISSIONS = {
     x: 1,       //  0001
     w: 1 << 1,  //  0010  = 2 move 1 position from the left
