@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { rhythm } from '../utils/typography';
 
 const TagItem = styled('div')(({ selected }) => ({

@@ -1,6 +1,7 @@
 import React from 'react';
-import styled, { css } from 'react-emotion';
-import Link from 'gatsby-link';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { Link } from 'gatsby';
 
 const wrapper = css`
   width: 100%;

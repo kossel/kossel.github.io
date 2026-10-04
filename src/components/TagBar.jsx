@@ -1,6 +1,6 @@
 import React from 'react';
 import kebabCase from 'lodash/kebabCase';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 import Tag from './Tag';
 
 const Contaienr = styled('div')({

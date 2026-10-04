@@ -66,11 +66,65 @@ module.exports = {
         trackingId: 'UA-124606923-1',
       },
     },
-    'gatsby-plugin-feed',
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              const siteUrl = site.siteMetadata.siteUrl.replace(/\/$/, '');
+              return allMarkdownRemark.edges.map(edge => {
+                const url = siteUrl + edge.node.fields.slug;
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.frontmatter.date,
+                  url,
+                  guid: url,
+                  custom_elements: [{ 'content:encoded': edge.node.html }],
+                });
+              });
+            },
+            query: `
+              {
+                allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      fields {
+                        slug
+                      }
+                      frontmatter {
+                        title
+                        date
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: '/rss.xml',
+            title: 'Growing in the web',
+          },
+        ],
+      },
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Yichao\'s Blog',
+        name: "Yichao's Blog",
         short_name: 'yichao',
         start_url: '/',
         background_color: '#ffffff',
@@ -86,10 +140,7 @@ module.exports = {
         pathToConfigModule: 'src/utils/typography',
       },
     },
-    'gatsby-plugin-eslint',
-    {
-      resolve: 'gatsby-plugin-emotion',
-    },
+    'gatsby-plugin-emotion',
     'gatsby-plugin-netlify-cms',
   ],
 };

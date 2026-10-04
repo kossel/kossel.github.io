@@ -1,9 +1,10 @@
-import React from 'react';
 import PropType from 'prop-types';
-import styled, { css } from 'react-emotion';
-import { Spring, Transition, animated } from 'react-spring';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { useSpring, animated } from '@react-spring/web';
 import 'typeface-montserrat/index.css';
 import 'typeface-merriweather/index.css';
+import profilePic from '../../content/assets/avatar.jpg';
 
 const BioContainer = styled(animated.div)`
   display: flex;
@@ -47,74 +48,52 @@ const AvatarCircle = styled('div')`
   );
 `;
 
-const ProfilePicture = styled('div')`
+const ProfilePicture = styled(animated.div)`
   display: flex;
   justify-content: space-around;
   align-items: center;
   position: relative;
 `;
 
-const ProfileName = styled('div')`
+const ProfileName = styled(animated.div)`
   padding: 8px 0;
 `;
 
-class Bio extends React.PureComponent {
-  render() {
-    const { shouldPin } = this.props;
-    return (
-      <BioContainer>
-        <Spring
-          to={{
-            width: shouldPin ? '64px' : '100px',
-            height: shouldPin ? '64px' : '100px',
-            transform: shouldPin
-              ? 'translate(-120px, 24px)'
-              : 'translate(0px, 0px)',
-          }}
-        >
-          {styles => (
-            <ProfilePicture style={styles}>
-              <img className={avatarStyle} src={profilePic} alt="Yichao" />
-              <AvatarCircle />
-            </ProfilePicture>
-          )}
-        </Spring>
-        <Spring
-          to={{
-            fontSize: shouldPin ? '16px' : '24px',
-            transform: shouldPin
-              ? 'translate(-36px, -36px)'
-              : 'translate(0px, 0px)',
-          }}
-        >
-          {styles => (
-            <ProfileName style={styles}>
-              <strong>Yichaoz</strong>
-            </ProfileName>
-          )}
-        </Spring>
-        <Transition
-          native
-          to={{
-            y: shouldPin ? 20 : 64,
-            opacity: shouldPin ? 1 : 0,
-          }}
-        >
-          {({ y, opacity }) => (
-            <animated.span
-              style={{
-                opacity,
-                position: 'absolute',
-                transform: y.interpolate(val => `translateY(${val}px)`),
-              }}
-            >
-              <small>Software Engineer</small>
-            </animated.span>
-          )}
-        </Transition>
-      </BioContainer>
-    );
-  }
+function Bio({ shouldPin }) {
+  const pictureStyle = useSpring({
+    width: shouldPin ? '64px' : '100px',
+    height: shouldPin ? '64px' : '100px',
+    transform: shouldPin ? 'translate(-120px, 24px)' : 'translate(0px, 0px)',
+  });
+  const nameStyle = useSpring({
+    fontSize: shouldPin ? '16px' : '24px',
+    transform: shouldPin ? 'translate(-36px, -36px)' : 'translate(0px, 0px)',
+  });
+  const subtitleStyle = useSpring({
+    y: shouldPin ? 20 : 64,
+    opacity: shouldPin ? 1 : 0,
+  });
+
+  return (
+    <BioContainer>
+      <ProfilePicture style={pictureStyle}>
+        <img className={avatarStyle} src={profilePic} alt="Yichao" />
+        <AvatarCircle />
+      </ProfilePicture>
+      <ProfileName style={nameStyle}>
+        <strong>Yichaoz</strong>
+      </ProfileName>
+      <animated.span
+        style={{
+          opacity: subtitleStyle.opacity,
+          position: 'absolute',
+          transform: subtitleStyle.y.to(val => `translateY(${val}px)`),
+        }}
+      >
+        <small>Software Engineer</small>
+      </animated.span>
+    </BioContainer>
+  );
 }
 
 Bio.defaultProps = {

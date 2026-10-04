@@ -1,5 +1,6 @@
 import React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { Link, graphql, StaticQuery } from 'gatsby';
 import get from 'lodash/get';
 import uniq from 'lodash/uniq';
@@ -48,9 +49,7 @@ class Sidebar extends React.Component {
       <StaticQuery
         query={graphql`
           query {
-            allMarkdownRemark(
-              sort: { fields: [frontmatter___date], order: DESC }
-            ) {
+            allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
               edges {
                 node {
                   fields {
