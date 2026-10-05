@@ -1,94 +1,69 @@
 const _ = require('lodash');
-const Promise = require('bluebird');
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
+  const blogPost = path.resolve('./src/templates/blog-post.jsx');
+  const tagTemplate = path.resolve('./src/templates/tags.jsx');
 
-  return new Promise((resolve, reject) => {
-    const blogPost = path.resolve('./src/templates/blog-post.jsx');
-    const tagTemplate = path.resolve('./src/templates/tags.jsx');
-    // const tagPostTemplate = path.resolve('./src/templates/tag-post.jsx');
-
-    resolve(
-      graphql(`
-        {
-          allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
-            edges {
-              node {
-                fields {
-                  slug
-                }
-                frontmatter {
-                  title
-                  tags
-                }
-              }
+  const result = await graphql(`
+    {
+      allMarkdownRemark(
+        sort: { frontmatter: { date: DESC } }
+        limit: 1000
+      ) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              title
+              tags
             }
           }
-        }`).then((result) => {
-        if (result.errors) {
-          console.log(result.errors);
-          reject(result.errors);
         }
+      }
+    }
+  `);
 
-        // Create blog posts pages.
-        const posts = result.data.allMarkdownRemark.edges;
+  if (result.errors) {
+    throw result.errors;
+  }
 
-        _.each(posts, (post, index) => {
-          const previous = index === posts.length - 1 ? null : posts[index + 1].node;
-          const next = index === 0 ? null : posts[index - 1].node;
+  const posts = result.data.allMarkdownRemark.edges;
 
-          createPage({
-            path: post.node.fields.slug,
-            component: blogPost,
-            context: {
-              slug: post.node.fields.slug,
-              previous,
-              next,
-            },
-          });
+  _.each(posts, (post, index) => {
+    const previous = index === posts.length - 1 ? null : posts[index + 1].node;
+    const next = index === 0 ? null : posts[index - 1].node;
 
-          // const postTags = _.get(post, 'node.frontmatter.tags');
+    createPage({
+      path: post.node.fields.slug,
+      component: blogPost,
+      context: {
+        slug: post.node.fields.slug,
+        previous,
+        next,
+      },
+    });
+  });
 
-          // postTags.forEach(postTag => {
-          //   createPage({
-          //     path: `/tags/${_.kebabCase(postTag)}${post.node.fields.slug}`,
-          //     component: tagPostTemplate,
-          //     context: {
-          //       slug: post.node.fields.slug,
-          //       tag: postTag,
-          //     },
-          //   });
-          // })
-        });
-
-        // Tag pages:
-        let tags = [];
-        // Iterate through each post, putting all found tags into `tags`
-        _.each(posts, (edge) => {
-          if (_.get(edge, 'node.frontmatter.tags')) {
-            tags = tags.concat(edge.node.frontmatter.tags);
-          }
-        });
-        // Eliminate duplicate tags
-        tags = _.uniq(tags);
-        // Make tag pages
-        tags.forEach((tag) => {
-          createPage({
-            path: `/tags/${_.kebabCase(tag)}`,
-            component: tagTemplate,
-            context: {
-              tag: _.kebabCase(tag),
-            },
-          });
-        });
-
-        // generate tag pages
-
-      }),
-    );
+  let tags = [];
+  _.each(posts, edge => {
+    if (_.get(edge, 'node.frontmatter.tags')) {
+      tags = tags.concat(edge.node.frontmatter.tags);
+    }
+  });
+  tags = _.uniq(tags);
+  tags.forEach(tag => {
+    createPage({
+      path: `/tags/${_.kebabCase(tag)}`,
+      component: tagTemplate,
+      context: {
+        tag: _.kebabCase(tag),
+      },
+    });
   });
 };
 
