@@ -1,5 +1,97 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Growing in the web]]></title><description><![CDATA[A collection of stuffs I found interesting]]></description><link>https://kossel.github.io/</link><generator>RSS for Node</generator><lastBuildDate>Sat, 06 Jun 2020 04:29:59 GMT</lastBuildDate><item><title><![CDATA[CSS scale content while keeping aspect ratio]]></title><description><![CDATA[There sometimes we have a div like these :But we would like independently of the screen size, they should always be square, which means has…]]></description><link>https://kossel.github.io//2019-08-21-css-scale-while-keeping-aspect-ratio/</link><guid isPermaLink="false">https://kossel.github.io//2019-08-21-css-scale-while-keeping-aspect-ratio/</guid><pubDate>Thu, 22 Aug 2019 02:47:30 GMT</pubDate><content:encoded>&lt;p&gt;There sometimes we have a div like these :&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/uploads/cafdsfdsdpture.jpg&quot; title=&quot;divs&quot;&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Growing in the web]]></title><description><![CDATA[A collection of stuffs I found interesting]]></description><link>https://kossel.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Mon, 05 Oct 2026 02:46:14 GMT</lastBuildDate><item><title><![CDATA[Bitmask flags for permissions or settings in javascript]]></title><description><![CDATA[Using bitmask for permissions is not something new, it’s been widely used in *nix world  (linux, macOs, Unix) since forever. I was just…]]></description><link>https://kossel.github.io/2020-11-27-bitmask-flags-for-permissions-or-settings-in-javascript/</link><guid isPermaLink="false">https://kossel.github.io/2020-11-27-bitmask-flags-for-permissions-or-settings-in-javascript/</guid><pubDate>Fri, 27 Nov 2020 03:52:38 GMT</pubDate><content:encoded>&lt;p&gt;Using bitmask for permissions is not something new, it’s been widely used in *nix world  (linux, macOs, Unix) since forever. I was just curious how it’s actually implemented and wanted to explorer why it’s useful also when it’s useful.&lt;/p&gt;
+&lt;p&gt;Let’s assume a very simple permission system&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Permission&lt;/th&gt;
+&lt;th&gt;Dec&lt;/th&gt;
+&lt;th&gt;Binary&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Execution (x)&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;0001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Write (w)&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;0010&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Read (r)&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;0100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Each permission is a bit in the binary position, eg. first bit represent has &lt;code class=&quot;language-text&quot;&gt;execution&lt;/code&gt; permission, second bit = has &lt;code class=&quot;language-text&quot;&gt;write&lt;/code&gt; permission and so on. so 0111 means have all the 3 permissions, which in decimal is &lt;code class=&quot;language-text&quot;&gt;777&lt;/code&gt;, that’s why &lt;code class=&quot;language-text&quot;&gt;chmod 777&lt;/code&gt; gives all the permissions in nix world.&lt;/p&gt;
+&lt;p&gt;Follow this we can do a very simple permission assignment and check system.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;PERMISSIONS&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;       &lt;span class=&quot;token comment&quot;&gt;//  0001&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;//  0010  = 2 move 1 position from the left&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;//  0100  = 4 move 2 positions from the left&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; userPermission &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// initialize without permission&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// for permission assignment we just need to do&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// granting execution permission.&lt;/span&gt;
+userPermission &lt;span class=&quot;token operator&quot;&gt;|=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;PERMISSIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;x   &lt;span class=&quot;token comment&quot;&gt;// he&apos;s 0001&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// granting read permission&lt;/span&gt;
+userPermission &lt;span class=&quot;token operator&quot;&gt;|=&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;PERMISSIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;r   &lt;span class=&quot;token comment&quot;&gt;// he&apos;s now 0101&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// how to check permission&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userPermission &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;PERMISSIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// &amp;amp; is AND so 0101 AND 0001 returns true&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;user has execution permission&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userPermission &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;PERMISSIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;w&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// now 0101 AND 0010 returns false&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;user has write permission&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;userPermission &lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;token constant&quot;&gt;PERMISSIONS&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;r&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token comment&quot;&gt;// now 0101 AND 0100 returns true&lt;/span&gt;
+    console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;user has read permission&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;if you run above code you should see output&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;user has execution permission
+user has read permission&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now the question is why is this and what’s the difference if I do it as an array like&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; userPermission &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;or as an object?&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; userPermission &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;token literal-property property&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token boolean&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There are many advantages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Speed, the bitwise operations are much faster than comparing array or objects&lt;/li&gt;
+&lt;li&gt;Space, it’s clear that an array or an object uses more space than a number, in the case of a file system, imagine hundreds of thousands of files, each file needs to have its own permission, it would use considerably space int than array/objects. What about the front-end world? Well, a page has A LOT of DOMs, what if we want to mark each DOM with some flags? using bitmask + int would use considerably less memory than if it were an array. Actually, this technic is being used in Vue for patch flagging vnodes, as you can see here &lt;a href=&quot;https://github.com/vuejs/vue-next/blob/master/packages/shared/src/patchFlags.ts&quot;&gt;in the patchFlags.ts&lt;/a&gt; (Vue source code)&lt;/li&gt;
+&lt;li&gt;It’s easier to manage and compare, you can just use bitwise operators. Imagine a scenario where you have a defined group of permission, let’s say you have&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;javascript&quot;&gt;&lt;pre class=&quot;language-javascript&quot;&gt;&lt;code class=&quot;language-javascript&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; editor &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// 0011 read and write only&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;to determine whether a user is an editor would be fairly straightforward with&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;if (userPermission &amp;amp; editor ){
+  console.log(&apos;you are editor&apos;);
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;doing that with an array or object would require more work…&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If we ever wanted to store it in DB, it’s much easier to store a number than an array or object, and obviously it’s faster and takes less space (did I said that again??)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are also disadvantages :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;First, it might be harder to read, especially if a developer is not familiar with bitwise operators, so if the flags are relatively small, might not worth spending the developer’s time on this and thinking it looks “cooler”…&lt;/li&gt;
+&lt;li&gt;Since it relies on the size of a Number (64bits in javascript) if you have more than 64 “flags” you might have to think of a more complicated schema for permissions, eg. break the permissions into groups. (which might not necessarily be a cons)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Hopefully, this explains why bitwise is better and when we can take advantage and use it&lt;/p&gt;</content:encoded></item><item><title><![CDATA[CSS scale content while keeping aspect ratio]]></title><description><![CDATA[There sometimes we have a div like these :  But we would like independently of the screen size, they should always be square, which means…]]></description><link>https://kossel.github.io/2019-08-21-css-scale-while-keeping-aspect-ratio/</link><guid isPermaLink="false">https://kossel.github.io/2019-08-21-css-scale-while-keeping-aspect-ratio/</guid><pubDate>Thu, 22 Aug 2019 02:47:30 GMT</pubDate><content:encoded>&lt;p&gt;There sometimes we have a div like these :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/uploads/cafdsfdsdpture.jpg&quot; alt=&quot;&quot; title=&quot;divs&quot;&gt;&lt;/p&gt;
 &lt;p&gt;But we would like independently of the screen size, they should always be square, which means has exactly the same height as width (which is always 50%), or in order word, we would like to scale it while keeping the same aspect ratio.&lt;/p&gt;
 &lt;p&gt;The trick is use &lt;strong&gt;padding in percentage,&lt;/strong&gt; why?&lt;/p&gt;
 &lt;blockquote&gt;
@@ -12,7 +104,7 @@
   &lt;span class=&quot;token property&quot;&gt;padding-top&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 50%&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;we can create a padding with exact same of the width (50% of the screen)&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/uploads/captfgbvccbcvure.jpg&quot; title=&quot;50% padding&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/uploads/captfgbvccbcvure.jpg&quot; alt=&quot;&quot; title=&quot;50% padding&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Now we can just position absolute the photo element and fill the container&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;css&quot;&gt;&lt;pre class=&quot;language-css&quot;&gt;&lt;code class=&quot;language-css&quot;&gt;&lt;span class=&quot;token selector&quot;&gt;.aspect-ratio-box&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token property&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; 50%&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
@@ -30,20 +122,20 @@
   ...
 &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and we will get the desired look;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/uploads/cavcvxcvpture.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/uploads/cavcvxcvpture.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Using the same concept we can also force the div to be 4:3 ratio or 16:9 ratio;&lt;/p&gt;
 &lt;p&gt;eg: &lt;code class=&quot;language-text&quot;&gt;3/4 = 75%&lt;/code&gt; or  &lt;code class=&quot;language-text&quot;&gt;9/16 = 56.25%&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/uploads/captufdsbvre.jpg&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/uploads/captufdsbvre.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;sample code: &lt;a href=&quot;https://codepen.io/kossel/pen/BaBQMYB&quot;&gt;https://codepen.io/kossel/pen/BaBQMYB&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 16 time slicing trick]]></title><description><![CDATA[Normally React wants to keep the UI consistent with what you told it to render.
-So if you renderthen it will have to call render methods and…]]></description><link>https://kossel.github.io//react-time-slicing/</link><guid isPermaLink="false">https://kossel.github.io//react-time-slicing/</guid><pubDate>Sun, 09 Sep 2018 22:47:10 GMT</pubDate><content:encoded>&lt;p&gt;Normally React wants to keep the UI consistent with what you told it to render.
+So if you render then it will have to call render methods…]]></description><link>https://kossel.github.io/react-time-slicing/</link><guid isPermaLink="false">https://kossel.github.io/react-time-slicing/</guid><pubDate>Sun, 09 Sep 2018 22:47:10 GMT</pubDate><content:encoded>&lt;p&gt;Normally React wants to keep the UI consistent with what you told it to render.
 So if you render&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;function Slideshow() {
   return (
-    &amp;lt;div&amp;gt;
-      &amp;lt;Expensive1 /&amp;gt;
-      &amp;lt;Expensive2 /&amp;gt;
-      &amp;lt;Expensive3 /&amp;gt;
-    &amp;lt;/div&amp;gt;
+    &amp;lt;div&gt;
+      &amp;lt;Expensive1 /&gt;
+      &amp;lt;Expensive2 /&gt;
+      &amp;lt;Expensive3 /&gt;
+    &amp;lt;/div&gt;
   );
 }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;then it will have to call render methods and create DOM nodes for the whole trees of Expensive1, Expensive2, and Expensive3, when Slideshow is being mounted.&lt;/p&gt;
@@ -51,61 +143,61 @@ So if you render&lt;/p&gt;
 &lt;p&gt;Today, it’s idiomatic to render just the current node, e.g.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;function Slideshow(props) {
   return (
-    &amp;lt;div&amp;gt;
-      {props.current === 0 &amp;amp;&amp;amp; &amp;lt;Expensive1 /&amp;gt;}
-      {props.current === 1 &amp;amp;&amp;amp; &amp;lt;Expensive2 /&amp;gt;}
-      {props.current === 2 &amp;amp;&amp;amp; &amp;lt;Expensive3 /&amp;gt;}
-    &amp;lt;/div&amp;gt;
+    &amp;lt;div&gt;
+      {props.current === 0 &amp;amp;&amp;amp; &amp;lt;Expensive1 /&gt;}
+      {props.current === 1 &amp;amp;&amp;amp; &amp;lt;Expensive2 /&gt;}
+      {props.current === 2 &amp;amp;&amp;amp; &amp;lt;Expensive3 /&gt;}
+    &amp;lt;/div&gt;
   );
 }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The upside of this is that now your first render of &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&amp;gt;&lt;/code&gt; only includes Expensive1. However, the downside is that the moment you switch to &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={1} /&amp;gt;&lt;/code&gt;, you will experience jank from creating and rendering the whole Expensive2 tree.&lt;/p&gt;
-&lt;p&gt;Ideally what we want to do is to tell React that when we render &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&amp;gt;&lt;/code&gt;, we want to show Expensive1, but we want to start preparing Expensive2 when the browser is idle. This way it won’t block the initial render or cause jank, but by the time you click “next” Expensive2 might just already be complete, and in this case it’ll just replace the DOM node.&lt;/p&gt;
+&lt;p&gt;The upside of this is that now your first render of &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&gt;&lt;/code&gt; only includes Expensive1. However, the downside is that the moment you switch to &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={1} /&gt;&lt;/code&gt;, you will experience jank from creating and rendering the whole Expensive2 tree.&lt;/p&gt;
+&lt;p&gt;Ideally what we want to do is to tell React that when we render &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&gt;&lt;/code&gt;, we want to show Expensive1, but we want to start preparing Expensive2 when the browser is idle. This way it won’t block the initial render or cause jank, but by the time you click “next” Expensive2 might just already be complete, and in this case it’ll just replace the DOM node.&lt;/p&gt;
 &lt;p&gt;This is exactly what time slicing which I partially demoed in my talk will allow. Your code might look something like:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;function Slideshow(props) {
   return (
-    &amp;lt;div&amp;gt;
-      &amp;lt;div hidden={props.current !== 0}&amp;gt;
-        &amp;lt;Expensive1 /&amp;gt;
-      &amp;lt;/div&amp;gt;
-      &amp;lt;div hidden={props.current !== 1}&amp;gt;
-        &amp;lt;Expensive2 /&amp;gt;
-      &amp;lt;/div&amp;gt;
-      &amp;lt;div hidden={props.current !== 2}&amp;gt;
-        &amp;lt;Expensive3 /&amp;gt;
-      &amp;lt;/div&amp;gt;
-    &amp;lt;/div&amp;gt;
+    &amp;lt;div&gt;
+      &amp;lt;div hidden={props.current !== 0}&gt;
+        &amp;lt;Expensive1 /&gt;
+      &amp;lt;/div&gt;
+      &amp;lt;div hidden={props.current !== 1}&gt;
+        &amp;lt;Expensive2 /&gt;
+      &amp;lt;/div&gt;
+      &amp;lt;div hidden={props.current !== 2}&gt;
+        &amp;lt;Expensive3 /&gt;
+      &amp;lt;/div&gt;
+    &amp;lt;/div&gt;
   );
 }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Note that hidden is a real HTML attribute. (It acts similar to display: none.) But it could also serve as a hint to React that the tree inside it doesn’t actually need to be committed immediately — because it’s not visible anyway. Also note: this is not a final API, I’m just explaining what it lets you do.&lt;/p&gt;
-&lt;p&gt;So when you render &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&amp;gt;&lt;/code&gt;, React mounts&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&amp;gt;
-  &amp;lt;div hidden={false}&amp;gt;
-    &amp;lt;Expensive1 /&amp;gt;
-  &amp;lt;/div&amp;gt;
-  &amp;lt;div hidden={true}&amp;gt;
-    &amp;lt;!-- not ready yet --&amp;gt;
-  &amp;lt;/div&amp;gt;
-  &amp;lt;div hidden={true}&amp;gt;
-    &amp;lt;!-- not ready yet --&amp;gt;
-  &amp;lt;/div&amp;gt;
-&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So when you render &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={0} /&gt;&lt;/code&gt;, React mounts&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&gt;
+  &amp;lt;div hidden={false}&gt;
+    &amp;lt;Expensive1 /&gt;
+  &amp;lt;/div&gt;
+  &amp;lt;div hidden={true}&gt;
+    &amp;lt;!-- not ready yet --&gt;
+  &amp;lt;/div&gt;
+  &amp;lt;div hidden={true}&gt;
+    &amp;lt;!-- not ready yet --&gt;
+  &amp;lt;/div&gt;
+&amp;lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and whenever the browser is idle (e.g. when you look at the first slideshow item), it will start working on Expensive2 in small chunks. When it’s ready, it will just append it to the hidden div — which won’t be observable to the user because it’s hidden.&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&amp;gt;
-  &amp;lt;div hidden={false}&amp;gt;
-    &amp;lt;Expensive1 /&amp;gt;
-  &amp;lt;/div&amp;gt;
-  &amp;lt;div hidden={true}&amp;gt;
-    &amp;lt;!-- not visible, but prepared during idle periods and now ready! --&amp;gt;
-    &amp;lt;Expensive2 /&amp;gt;
-  &amp;lt;/div&amp;gt;
-  &amp;lt;div hidden={true}&amp;gt;
-    &amp;lt;!-- not ready yet, but React will start working on it next --&amp;gt;
-  &amp;lt;/div&amp;gt;
-&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now if you switch to &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={1} /&amp;gt;&lt;/code&gt;, React doesn’t need to do any extra rendering because it has already “prepared” Expensive2 ahead of time.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div&gt;
+  &amp;lt;div hidden={false}&gt;
+    &amp;lt;Expensive1 /&gt;
+  &amp;lt;/div&gt;
+  &amp;lt;div hidden={true}&gt;
+    &amp;lt;!-- not visible, but prepared during idle periods and now ready! --&gt;
+    &amp;lt;Expensive2 /&gt;
+  &amp;lt;/div&gt;
+  &amp;lt;div hidden={true}&gt;
+    &amp;lt;!-- not ready yet, but React will start working on it next --&gt;
+  &amp;lt;/div&gt;
+&amp;lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now if you switch to &lt;code class=&quot;language-text&quot;&gt;&amp;lt;Slideshow current={1} /&gt;&lt;/code&gt;, React doesn’t need to do any extra rendering because it has already “prepared” Expensive2 ahead of time.&lt;/p&gt;
 &lt;p&gt;And if you switch too fast, and React hasn’t been able to fully prepare Expensive2 yet, it will just pick it up where it left off but set a much more aggressive deadline since we want to see results within ~150ms.&lt;/p&gt;
 &lt;p&gt;I hope this explains it a bit! The crucial part here is time slicing. This optimization wouldn’t make sense if pre-rendering Expensive2 or Expensive3 blocked the thread since in this case it wouldn’t be worth slowing down the interactions while Expensive1 is visible. But thanks to React’s architecture, we can actually start pre-rendering Expensive2 and Expensive3 in small chunks without blocking the thread, and that’s what will enable this optimization.&lt;/p&gt;
-&lt;p&gt;Source: &lt;a href=&quot;https://github.com/oliviertassinari/react-swipeable-views/issues/453#issuecomment-417939459&quot;&gt;github&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[How good are you with css]]></title><description><![CDATA[Given these classes:Which color would these divs be?Now see the answer ;)https://codepen.io/kossel/pen/PdEdLP]]></description><link>https://kossel.github.io//css-test/</link><guid isPermaLink="false">https://kossel.github.io//css-test/</guid><pubDate>Sun, 09 Sep 2018 22:40:20 GMT</pubDate><content:encoded>&lt;p&gt;Given these classes:&lt;/p&gt;
+&lt;p&gt;Source: &lt;a href=&quot;https://github.com/oliviertassinari/react-swipeable-views/issues/453#issuecomment-417939459&quot;&gt;github&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[How good are you with css]]></title><description><![CDATA[Given these classes: Which color would these divs be? Now see the answer ;) https://codepen.io/kossel/pen/PdEdLP]]></description><link>https://kossel.github.io/css-test/</link><guid isPermaLink="false">https://kossel.github.io/css-test/</guid><pubDate>Sun, 09 Sep 2018 22:40:20 GMT</pubDate><content:encoded>&lt;p&gt;Given these classes:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;.red {
   color: red;
 }
@@ -114,12 +206,12 @@ So if you render&lt;/p&gt;
   color: blue;
 }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Which color would these divs be?&lt;/p&gt;
-&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div class=&amp;quot;red blue&amp;quot;&amp;gt;hello&amp;lt;/div&amp;gt;
-&amp;lt;div class=&amp;quot;blue red&amp;quot;&amp;gt;hello&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;div class=&quot;red blue&quot;&gt;hello&amp;lt;/div&gt;
+&amp;lt;div class=&quot;blue red&quot;&gt;hello&amp;lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now see the answer ;)&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://codepen.io/kossel/pen/PdEdLP&quot;&gt;https://codepen.io/kossel/pen/PdEdLP&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Me]]></title><description><![CDATA[Software Engineer, I enjoy b̶r̶e̶a̶k̶i̶n̶g̶ fixing stuff. I love good UI/UX and optimized code, Always interest in new and interesting…]]></description><link>https://kossel.github.io//me/</link><guid isPermaLink="false">https://kossel.github.io//me/</guid><pubDate>Sun, 26 Aug 2018 22:44:08 GMT</pubDate><content:encoded>&lt;ul&gt;
+&lt;p&gt;&lt;a href=&quot;https://codepen.io/kossel/pen/PdEdLP&quot;&gt;https://codepen.io/kossel/pen/PdEdLP&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Me]]></title><description><![CDATA[Software Engineer, I enjoy b̶r̶e̶a̶k̶i̶n̶g̶ fixing stuff. I love good UI/UX and optimized code, Always interest in new and interesting…]]></description><link>https://kossel.github.io/me/</link><guid isPermaLink="false">https://kossel.github.io/me/</guid><pubDate>Sun, 26 Aug 2018 22:44:08 GMT</pubDate><content:encoded>&lt;ul&gt;
 &lt;li&gt;Software Engineer, I enjoy b̶r̶e̶a̶k̶i̶n̶g̶ fixing stuff. I love good UI/UX and optimized code, Always interest in new and interesting technology.&lt;/li&gt;
-&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Default implementation of shouldComponentUnpdate]]></title><description><![CDATA[tl;drAccording to React documentationIt just returns You can also see it in the source code (react 16.2.0)When it’s  it does shallow…]]></description><link>https://kossel.github.io//default-implementation-of-shouldcomponentunpdate/</link><guid isPermaLink="false">https://kossel.github.io//default-implementation-of-shouldcomponentunpdate/</guid><pubDate>Wed, 13 Dec 2017 22:56:20 GMT</pubDate><content:encoded>&lt;p&gt;tl;dr&lt;/p&gt;
+&lt;/ul&gt;</content:encoded></item><item><title><![CDATA[Default implementation of shouldComponentUnpdate]]></title><description><![CDATA[tl;dr According to React documentation It just returns  You can also see it in the source code (react 16.2.0) When it’s  it does shallow…]]></description><link>https://kossel.github.io/default-implementation-of-shouldcomponentunpdate/</link><guid isPermaLink="false">https://kossel.github.io/default-implementation-of-shouldcomponentunpdate/</guid><pubDate>Wed, 13 Dec 2017 22:56:20 GMT</pubDate><content:encoded>&lt;p&gt;tl;dr&lt;/p&gt;
 &lt;p&gt;According to &lt;a href=&quot;https://stackoverflow.com/questions/30571875/whats-the-difference-between-super-and-superprops-in-react-when-using-e&quot;&gt;React documentation&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;It just returns &lt;code class=&quot;language-text&quot;&gt;true&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;You can also see it in the &lt;a href=&quot;https://github.com/facebook/react/blob/1637b43e27c40c73f9489603145f9bb1d0ece618/packages/react-reconciler/src/ReactFiberClassComponent.js#L200&quot;&gt;source code&lt;/a&gt; (react 16.2.0)&lt;/p&gt;
@@ -152,14 +244,14 @@ So if you render&lt;/p&gt;
             &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; afunction&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// yes they are referring to same function&lt;/span&gt;
             &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;b &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; afunction&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;token comment&quot;&gt;// yes they are referring to same function&lt;/span&gt;
             &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;state &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-              selected&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;a
+              &lt;span class=&quot;token literal-property property&quot;&gt;selected&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;a
             &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
             &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;changeSelected &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;changeSelected&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
           &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
           &lt;span class=&quot;token function&quot;&gt;changeSelected&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
             &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;setState&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
-              selected&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;b
+              &lt;span class=&quot;token literal-property property&quot;&gt;selected&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;b
             &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
           &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
 
@@ -167,20 +259,21 @@ So if you render&lt;/p&gt;
             console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;rendered app&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
               &lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Hello&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;World&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;handleOnClick&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;state&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;selected&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;token class-name&quot;&gt;Hello&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;token attr-value&quot;&gt;&lt;span class=&quot;token punctuation attr-equals&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;World&lt;span class=&quot;token punctuation&quot;&gt;&quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;handleOnClick&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;state&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;selected&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;/&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
                 &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;&lt;/span&gt;button&lt;/span&gt; &lt;span class=&quot;token attr-name&quot;&gt;onClick&lt;/span&gt;&lt;span class=&quot;token script language-javascript&quot;&gt;&lt;span class=&quot;token script-punctuation punctuation&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;changeSelected&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;Swap function&lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;button&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;token plain-text&quot;&gt;
               &lt;/span&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token tag&quot;&gt;&lt;span class=&quot;token punctuation&quot;&gt;&amp;lt;/&lt;/span&gt;div&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;&gt;&lt;/span&gt;&lt;/span&gt;
             &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
 
           &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The output log
 &lt;code class=&quot;language-text&quot;&gt;rendered app&lt;/code&gt;
 &lt;code class=&quot;language-text&quot;&gt;rendered Hello&lt;/code&gt;
 Everytime you press “Swap function” button, the render function is called even the props hasn’t changed.&lt;/p&gt;
 &lt;p&gt;However if you change the Hello component to extends to &lt;code class=&quot;language-text&quot;&gt;React.PureComponent&lt;/code&gt;
 Pression “Swap function” will not call Hello component’s render function.&lt;/p&gt;
-&lt;p&gt;But, don’t think it’s an easy optimization!! you have to be specially careful rolling your own &lt;code class=&quot;language-text&quot;&gt;shouldComponentUpdate&lt;/code&gt;!! read this awesome post first please &lt;a href=&quot;http://jamesknelson.com/should-i-use-shouldcomponentupdate/&quot;&gt;Shoul I use ShouldComponentUpdate?&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Why call super or super(props)]]></title><description><![CDATA[In react world, many time we call  and , I do that and saw in many places, however I’ve never asked myself what does it actually do…eg.So…]]></description><link>https://kossel.github.io//why-call-super-or-super-props/</link><guid isPermaLink="false">https://kossel.github.io//why-call-super-or-super-props/</guid><pubDate>Wed, 13 Dec 2017 22:44:08 GMT</pubDate><content:encoded>&lt;p&gt;In react world, many time we call &lt;code class=&quot;language-text&quot;&gt;super&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;super(props)&lt;/code&gt;, I do that and saw in many places, however I’ve never asked myself what does it actually do…&lt;/p&gt;
+&lt;p&gt;But, don’t think it’s an easy optimization!! you have to be specially careful rolling your own &lt;code class=&quot;language-text&quot;&gt;shouldComponentUpdate&lt;/code&gt;!! read this awesome post first please &lt;a href=&quot;http://jamesknelson.com/should-i-use-shouldcomponentupdate/&quot;&gt;Shoul I use ShouldComponentUpdate?&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[Why call super or super(props)]]></title><description><![CDATA[In react world, many time we call  and , I do that and saw in many places, however I’ve never asked myself what does it actually do… eg. So…]]></description><link>https://kossel.github.io/why-call-super-or-super-props/</link><guid isPermaLink="false">https://kossel.github.io/why-call-super-or-super-props/</guid><pubDate>Wed, 13 Dec 2017 22:44:08 GMT</pubDate><content:encoded>&lt;p&gt;In react world, many time we call &lt;code class=&quot;language-text&quot;&gt;super&lt;/code&gt; and &lt;code class=&quot;language-text&quot;&gt;super(props)&lt;/code&gt;, I do that and saw in many places, however I’ve never asked myself what does it actually do…&lt;/p&gt;
 &lt;p&gt;eg.&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyComponent&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;React&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Component&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
@@ -204,7 +297,7 @@ Pression “Swap function” will not call Hello component’s render function.&
     &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The only reason is to let you use &lt;code class=&quot;language-text&quot;&gt;this&lt;/code&gt; or &lt;code class=&quot;language-text&quot;&gt;this.props&lt;/code&gt; inside of the constructor, however you could always use &lt;code class=&quot;language-text&quot;&gt;props&lt;/code&gt; from the constructor attribute…
 There is only one reason when one needs to pass props to super():&lt;/p&gt;
-&lt;p&gt; Passing:&lt;/p&gt;
+&lt;p&gt;Passing:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyComponent&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;React&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Component&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
      &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
          &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;props&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
@@ -213,7 +306,7 @@ There is only one reason when one needs to pass props to super():&lt;/p&gt;
          &lt;span class=&quot;token comment&quot;&gt;// goood&lt;/span&gt;
      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt; Not passing:&lt;/p&gt;
+&lt;p&gt;Not passing:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyComponent&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;React&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Component&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
      &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
          &lt;span class=&quot;token keyword&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
@@ -231,15 +324,16 @@ There is only one reason when one needs to pass props to super():&lt;/p&gt;
          console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;props&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
          &lt;span class=&quot;token comment&quot;&gt;// good&lt;/span&gt;
      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
- &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt; Not calling:&lt;/p&gt;
+ &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Not calling:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt; &lt;span class=&quot;token keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;MyComponent&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;React&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;Component&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
      &lt;span class=&quot;token function&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token parameter&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
            console&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
          &lt;span class=&quot;token comment&quot;&gt;// undefined&lt;/span&gt;
      &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt; Source: &lt;a href=&quot;https://stackoverflow.com/questions/30571875/whats-the-difference-between-super-and-superprops-in-react-when-using-e&quot;&gt;Stackoverflow&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 16 fragment vs container divs]]></title><description><![CDATA[In React 16.2, improved support for Fragments has been added. More information can be found on React’s blog post here.We are all familiar…]]></description><link>https://kossel.github.io//react-16-fragment-vs-container-divs/</link><guid isPermaLink="false">https://kossel.github.io//react-16-fragment-vs-container-divs/</guid><pubDate>Wed, 13 Dec 2017 22:17:10 GMT</pubDate><content:encoded>&lt;p&gt;In React 16.2, improved support for Fragments has been added. More information can be found on React’s blog post &lt;a href=&quot;https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Source: &lt;a href=&quot;https://stackoverflow.com/questions/30571875/whats-the-difference-between-super-and-superprops-in-react-when-using-e&quot;&gt;Stackoverflow&lt;/a&gt;&lt;/p&gt;</content:encoded></item><item><title><![CDATA[React 16 fragment vs container divs]]></title><description><![CDATA[In React 16.2, improved support for Fragments has been added. More information can be found on React’s blog post here. We are all familiar…]]></description><link>https://kossel.github.io/react-16-fragment-vs-container-divs/</link><guid isPermaLink="false">https://kossel.github.io/react-16-fragment-vs-container-divs/</guid><pubDate>Wed, 13 Dec 2017 22:17:10 GMT</pubDate><content:encoded>&lt;p&gt;In React 16.2, improved support for Fragments has been added. More information can be found on React’s blog post &lt;a href=&quot;https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;We are all familiar with the following code:&lt;/p&gt;
 &lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token function&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;token keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
